@@ -10,9 +10,10 @@ namespace MakePlusWebAPI.Models
     //for now add a submit button to each table to submit the entire table.  Any insertion/deletion(?) will actually be an upsert to the entire table, i.e bulkcopy
     public class Project
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }
 
+        public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
         public DateTime ProjectStartDate { get; set; }
         public DateTime ProjectEndDate { get; set; }
@@ -27,10 +28,12 @@ namespace MakePlusWebAPI.Models
         public ICollection<Phase> Phase { get; set; }
         public ICollection<Invoice> Invoice { get; set; }
 
-        public Project(string projectDescription, DateTime projectStartDate, DateTime projectEndDate, double percentageComplete,
+        public Project(int projectId, string projectName, string projectDescription, DateTime projectStartDate, DateTime projectEndDate, double percentageComplete,
             bool isInProgressSurveySent, bool isInProgressSurveyComplete,
             bool isFollowUpSurveySent, bool isFollowUpSurveyComplete, bool isProposal, double costMultiplier)
         {
+            this.ProjectId = projectId;
+            this.ProjectName = projectName;
             this.ProjectDescription = projectDescription;
             this.ProjectStartDate = projectStartDate;
             this.ProjectEndDate = projectEndDate;

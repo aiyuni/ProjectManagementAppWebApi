@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MakePlusWebAPI.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +11,7 @@ namespace MakePlusWebAPI.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EmployeeId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Salary = table.Column<double>(nullable: false)
                 },
@@ -26,8 +24,8 @@ namespace MakePlusWebAPI.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    ProjectId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProjectId = table.Column<int>(nullable: false),
+                    ProjectName = table.Column<string>(nullable: true),
                     ProjectDescription = table.Column<string>(nullable: true),
                     ProjectStartDate = table.Column<DateTime>(nullable: false),
                     ProjectEndDate = table.Column<DateTime>(nullable: false),
@@ -48,8 +46,7 @@ namespace MakePlusWebAPI.Migrations
                 name: "Invoice",
                 columns: table => new
                 {
-                    InvoiceId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    InvoiceId = table.Column<int>(nullable: false),
                     ProjectId = table.Column<int>(nullable: false),
                     InvoiceName = table.Column<string>(nullable: true),
                     InvoiceTime = table.Column<DateTime>(nullable: false),
@@ -70,8 +67,7 @@ namespace MakePlusWebAPI.Migrations
                 name: "Phases",
                 columns: table => new
                 {
-                    PhaseId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PhaseId = table.Column<int>(nullable: false),
                     ProjectId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),

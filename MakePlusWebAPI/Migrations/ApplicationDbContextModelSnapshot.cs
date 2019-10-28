@@ -21,9 +21,7 @@ namespace MakePlusWebAPI.Migrations
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("EmployeeId");
 
                     b.Property<string>("Name");
 
@@ -61,9 +59,7 @@ namespace MakePlusWebAPI.Migrations
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Invoice", b =>
                 {
-                    b.Property<int>("InvoiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("InvoiceId");
 
                     b.Property<double>("InvoiceAmount");
 
@@ -82,9 +78,7 @@ namespace MakePlusWebAPI.Migrations
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Phase", b =>
                 {
-                    b.Property<int>("PhaseId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("PhaseId");
 
                     b.Property<int>("ActualDurationInWeeks");
 
@@ -117,9 +111,7 @@ namespace MakePlusWebAPI.Migrations
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Project", b =>
                 {
-                    b.Property<int>("ProjectId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("ProjectId");
 
                     b.Property<double>("CostMultiplier");
 
@@ -138,6 +130,8 @@ namespace MakePlusWebAPI.Migrations
                     b.Property<string>("ProjectDescription");
 
                     b.Property<DateTime>("ProjectEndDate");
+
+                    b.Property<string>("ProjectName");
 
                     b.Property<DateTime>("ProjectStartDate");
 

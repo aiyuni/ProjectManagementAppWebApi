@@ -19,7 +19,24 @@ namespace MakePlusWebAPI.Models.Repository
             System.Diagnostics.Debug.WriteLine("Inside Add method of ProjectRepository");
             System.Diagnostics.Debug.WriteLine("Project being added is: " + entity.ToString());
 
-            _ProjectDbContext.Projects.Add(entity);
+            if (_ProjectDbContext.Projects.FirstOrDefault() != null)
+            {
+                System.Diagnostics.Debug.WriteLine("Existing project id: " + _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
+            }
+            //System.Diagnostics.Debug.WriteLine("Existing project id: " + _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
+            if (_ProjectDbContext.Projects.Any(p => p.ProjectId == entity.ProjectId) == false)
+            {
+                System.Diagnostics.Debug.WriteLine("record doesnt exist, adding...");
+                _ProjectDbContext.Projects.Add(entity);
+            }
+            else
+            {
+                System.Diagnostics.Debug.Write("record already exists, updating...");
+                Project existingProject = _ProjectDbContext.Projects.FirstOrDefault(p => p.ProjectId == entity.ProjectId);
+                this.Update(existingProject, entity);
+                //_ProjectDbContext.Projects.Update();
+            }
+
             _ProjectDbContext.SaveChanges();
         }
 
@@ -40,7 +57,8 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Update(Project dbEntity, Project entity)
         {
-            throw new NotImplementedException();
+            _ProjectDbContext.Entry(dbEntity).CurrentValues.SetValues(entity);
+            System.Diagnostics.Debug.Write("Updated...");
         }
     }
 }

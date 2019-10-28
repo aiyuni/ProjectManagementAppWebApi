@@ -9,7 +9,8 @@ namespace MakePlusWebAPI.Models
 {
     public class Phase
     {
-        [Key]
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PhaseId { get; set; } //PK
 
         [ForeignKey("ProjectId")]

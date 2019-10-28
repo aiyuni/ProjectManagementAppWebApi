@@ -10,7 +10,7 @@ namespace MakePlusWebAPI.Models
 {
     public class Invoice
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int InvoiceId { get; set; }
 
         [ForeignKey("ProjectId")]

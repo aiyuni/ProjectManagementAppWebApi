@@ -25,6 +25,8 @@ namespace MakePlusWebAPI.Models
             modelBuilder.Entity<EmployeeAssignment>()
                 .HasKey(ea => new {ea.PhaseId, ea.EmployeeId});
           //  modelBuilder.Entity<EmployeeAssignment>().HasOne(ea => ea.).WithMany(bc => Phase);
+            modelBuilder.Entity<Project>().HasKey(p => p.ProjectId);
+
         }
     }
 
