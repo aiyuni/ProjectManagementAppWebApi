@@ -37,9 +37,7 @@ namespace MakePlusWebAPI.Controllers
         [HttpPost]
         public IActionResult Post(IndividualProjectPage page)
         {
-            System.Diagnostics.Debug.WriteLine("text is: " + page.ToString());
-            string json = JsonConvert.SerializeObject(page);
-            System.Diagnostics.Debug.WriteLine("text json is: " + json);
+            
             Project project = new Project(page.ID, page.Name,page.desc, page.startDate, page.endDate, page.completion, page.progressSurveySent, page.progressSurveyResult,
                 page.followupSurveySent, page.followupSurveyResult, true, 69.9);
             _projectRepository.Add(project);
