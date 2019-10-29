@@ -22,10 +22,11 @@ namespace MakePlusWebAPI.Models
         //Fluent API follows the Fluent Interface design pattern.  EF does it with ModelBuilder class. https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EmployeeAssignment>()
-                .HasKey(ea => new {ea.PhaseId, ea.EmployeeId});
+            modelBuilder.Entity<EmployeeAssignment>().HasKey(ea => new {ea.PhaseId, ea.EmployeeId});
           //  modelBuilder.Entity<EmployeeAssignment>().HasOne(ea => ea.).WithMany(bc => Phase);
             modelBuilder.Entity<Project>().HasKey(p => p.ProjectId);
+
+            modelBuilder.Entity<Employee>().HasKey(p => p.EmployeeId);
 
         }
     }

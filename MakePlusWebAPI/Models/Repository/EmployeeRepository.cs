@@ -16,15 +16,31 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Add(Employee entity)
         {
+            /*
             _employeeContext.Employees.Add(entity);
+            _employeeContext.SaveChanges();
+            */
+            if(_employeeContext.Employees.FirstOrDefault() != null)
+            {
+                System.Diagnostics.Debug.WriteLine("Existing Employee id: " +
+                    _employeeContext.Employees.FirstOrDefault().EmployeeId + ", new employee id: " + entity.EmployeeId);
+
+            }
+            if(_employeeContext.Employees.Any(p => p.EmployeeId == entity.EmployeeId) == false)
+            {
+                System.Diagnostics.Debug.WriteLine("record doesnt exist, adding...");
+                _employeeContext.Employees.Add(entity);
+            }
+            else
+            {
+                System.Diagnostics.Debug.Write("record already exists, updating...");
+                Employee existingEmployee = _employeeContext.Employees.FirstOrDefault(p => p.EmployeeId == entity.EmployeeId);
+                this.Update(existingEmployee, entity);
+            }
+
             _employeeContext.SaveChanges();
         }
 
-        public void Update(Employee employee, Employee entity)
-        {
-            employee.Name = entity.Name;
-            employee.Salary = entity.Salary;
-        }
 
         public void Delete(Employee entity)
         {
@@ -39,6 +55,11 @@ namespace MakePlusWebAPI.Models.Repository
         public IEnumerable<Employee> GetAll()
         {
             return _employeeContext.Employees.ToList();
+        }
+        public void Update(Employee dbEntity, Employee entity)
+        {
+            _employeeContext.Entry(dbEntity).CurrentValues.SetValues(entity);
+            System.Diagnostics.Debug.Write("Updated...");
         }
 
     }
