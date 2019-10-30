@@ -28,8 +28,11 @@ namespace MakePlusWebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            System.Diagnostics.Debug.WriteLine("Not implemented GET method yet");
-            return new OkObjectResult(400);
+
+            return Ok(_employeeRepository.GetAll());
+            //System.Diagnostics.Debug.WriteLine("Not implemented GET method yet");
+
+            //return new OkObjectResult(400);
         }
 
 
