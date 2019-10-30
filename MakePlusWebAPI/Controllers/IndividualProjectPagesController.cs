@@ -29,8 +29,9 @@ namespace MakePlusWebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            System.Diagnostics.Debug.WriteLine("Inside get method of individualProjectPages controller... which does nothing");
-            return new OkObjectResult(400);
+            return Ok(_projectRepository.GetAll());
+            //System.Diagnostics.Debug.WriteLine("Inside get method of individualProjectPages controller... which does nothing");
+            //return new OkObjectResult(400);
         }
 
         //POST: api/individualprojectpages

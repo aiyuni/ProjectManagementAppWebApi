@@ -9,6 +9,6 @@ namespace MakePlusWebAPI.Models.Pages.EmployeePage
     {
         public int empID { get; set; }
         public string name { get; set; }
-        public int wage { get; set; }
+        public double wage { get; set; }
     }
 }

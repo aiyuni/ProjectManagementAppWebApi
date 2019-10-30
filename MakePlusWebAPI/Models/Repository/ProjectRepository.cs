@@ -53,7 +53,7 @@ namespace MakePlusWebAPI.Models.Repository
 
         public IEnumerable<Project> GetAll()
         {
-            throw new NotImplementedException();
+            return _ProjectDbContext.Projects.ToList();
         }
 
         public void Update(Project dbEntity, Project entity)
