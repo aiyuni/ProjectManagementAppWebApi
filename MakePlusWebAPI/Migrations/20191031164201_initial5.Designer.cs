@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakePlusWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191031011725_initial2")]
-    partial class initial2
+    [Migration("20191031164201_initial5")]
+    partial class initial5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -144,15 +144,13 @@ namespace MakePlusWebAPI.Migrations
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Workload", b =>
                 {
+                    b.Property<int>("WorkloadID");
+
                     b.Property<int>("ProjectID");
-
-                    b.Property<int>("EmployeeID");
-
-                    b.Property<string>("Name");
 
                     b.Property<string>("ProjectName");
 
-                    b.Property<bool>("isNonePorjectTime");
+                    b.Property<bool>("isNoneProjectTime");
 
                     b.Property<int>("month1");
 
@@ -170,7 +168,9 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<DateTime>("projectEndDate");
 
-                    b.HasKey("ProjectID", "EmployeeID");
+                    b.HasKey("WorkloadID");
+
+                    b.HasIndex("ProjectID");
 
                     b.ToTable("Workloads");
                 });
@@ -201,6 +201,14 @@ namespace MakePlusWebAPI.Migrations
                     b.HasOne("MakePlusWebAPI.Models.Project", "Project")
                         .WithMany("Phase")
                         .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MakePlusWebAPI.Models.Workload", b =>
+                {
+                    b.HasOne("MakePlusWebAPI.Models.Project")
+                        .WithMany("Workload")
+                        .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

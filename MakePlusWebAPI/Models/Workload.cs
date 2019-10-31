@@ -35,7 +35,9 @@ namespace MakePlusWebAPI.Models
         public bool isNoneProjectTime { get; set; }
 
 
-        //int projectId, string projectName, int employeeId, string name, 
+        //int projectId, strig projectName, int employeeId, string name, 
+        public Workload() { }
+        
         public Workload(int workloadId, int projectId, string projectName, 
             int month1, int month2, int month3, int month4, int month5, int month6, int projectCompletion,
             DateTime projectEndDate, bool isNoneProjectTime)
@@ -50,6 +52,7 @@ namespace MakePlusWebAPI.Models
             this.Name = name;
             */
 
+        
             this.month1 = month1;
             this.month2 = month2;
             this.month3 = month3;
@@ -61,6 +64,9 @@ namespace MakePlusWebAPI.Models
             this.isNoneProjectTime = isNoneProjectTime;
 
         }
+        
+    
+
     }
 
 

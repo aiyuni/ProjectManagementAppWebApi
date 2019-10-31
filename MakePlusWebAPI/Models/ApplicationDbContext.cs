@@ -31,7 +31,7 @@ namespace MakePlusWebAPI.Models
 
             modelBuilder.Entity<Employee>().HasKey(p => p.EmployeeId);
 
-            modelBuilder.Entity<Workload>().HasKey(p => new { p.WorkloadID, p.ProjectID});
+            modelBuilder.Entity<Workload>().HasKey(p => p.WorkloadID);
 
         }
     }
