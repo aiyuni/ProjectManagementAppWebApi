@@ -27,6 +27,7 @@ namespace MakePlusWebAPI.Models
 
         public ICollection<Phase> Phase { get; set; }
         public ICollection<Invoice> Invoice { get; set; }
+        public IList<Workload> Workload { get; set; }
 
         public Project(int projectId, string projectName, string projectDescription, DateTime projectStartDate, DateTime projectEndDate, double percentageComplete,
             bool isInProgressSurveySent, bool isInProgressSurveyComplete,

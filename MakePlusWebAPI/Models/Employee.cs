@@ -18,6 +18,8 @@ namespace MakePlusWebAPI.Models
 
         public IList<EmployeeAssignment> EmployeeAssignments { get; set; }
 
+        //public IList<Workload> Workload { get; set; }
+
         public Employee(int employeeId, string name, double salary)
         {
             this.EmployeeId = employeeId;
