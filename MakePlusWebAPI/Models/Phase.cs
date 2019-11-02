@@ -27,8 +27,33 @@ namespace MakePlusWebAPI.Models
         public double MaterialActualBudget { get; set; }
         public string MaterialImpact { get; set; }
 
+        public string Row_lst_upd_ts { get; set; }
+        public string Row_lst_upd_user { get; set; }
+
         public IList<EmployeeAssignment> EmployeeAssignments { get; set; }
         public Project Project { get; set; }
+
+        public Phase(int phaseId, int projectId, string name, DateTime startDate, DateTime endDate, bool isRecordDone,
+            int predictedDurationInWeeks, int actualDurationInWeeks, string impact,
+            double materialProjectedBudget, double materialActualBudget, string materialImpact)
+        {
+            this.PhaseId = phaseId;
+            this.ProjectId = projectId;
+            this.Name = name;
+            this.StartDate = startDate;
+            this.EndDate = endDate;
+            this.IsRecordDone = isRecordDone;
+            this.PredictedDurationInWeeks = predictedDurationInWeeks;
+            this.ActualDurationInWeeks = actualDurationInWeeks;
+            this.Impact = impact;
+            this.MaterialActualBudget = materialActualBudget;
+            this.MaterialProjectedBudget = materialProjectedBudget;
+            this.MaterialImpact = materialImpact;
+
+            this.Row_lst_upd_ts = DateTime.Now.ToString();
+            this.Row_lst_upd_user = System.Environment.UserName.ToString();
+
+        }
         
     }
 }

@@ -10,7 +10,7 @@ namespace MakePlusWebAPI.Models
 {
     public class Invoice
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public int InvoiceId { get; set; }
 
         [ForeignKey("ProjectId")]
@@ -20,6 +20,24 @@ namespace MakePlusWebAPI.Models
         public DateTime InvoiceTime { get; set; }
         public double InvoiceAmount { get; set; }
 
+        public string Row_lst_upd_ts { get; set; }
+        public string Row_lst_upd_user { get; set; }
+
         public Project Project { get; set; }
+
+        public Invoice()
+        {
+
+        }
+
+        public Invoice(int projectId, string name, DateTime time, double amount)
+        {
+            this.ProjectId = projectId;
+            this.InvoiceName = name;
+            this.InvoiceTime = time;
+            this.InvoiceAmount = amount;
+            this.Row_lst_upd_ts = DateTime.Now.ToString();
+            this.Row_lst_upd_user = System.Environment.UserName;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MakePlusWebAPI.Models.Repository
 {
@@ -39,6 +40,7 @@ namespace MakePlusWebAPI.Models.Repository
             }
 
             _employeeContext.SaveChanges();
+            _employeeContext.Entry(entity).State = EntityState.Detached;
         }
 
 
@@ -47,9 +49,9 @@ namespace MakePlusWebAPI.Models.Repository
             throw new NotImplementedException();
         }
 
-        public Employee Get(long id)
+        public Employee Get(int id)
         {
-            throw new NotImplementedException();
+            return _employeeContext.Employees.Find(id);
         }
 
         public IEnumerable<Employee> GetAll()
@@ -60,6 +62,19 @@ namespace MakePlusWebAPI.Models.Repository
         {
             _employeeContext.Entry(dbEntity).CurrentValues.SetValues(entity);
             System.Diagnostics.Debug.Write("Updated...");
+        }
+
+        public int GetMaxId()
+        {
+            int maxId = 0;
+            foreach (Employee item in GetAll())
+            {
+                if (item.EmployeeId> maxId)
+                {
+                    maxId = item.EmployeeId;
+                }
+            }
+            return maxId;
         }
 
     }

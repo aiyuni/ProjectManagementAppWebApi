@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakePlusWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191028054635_initial")]
-    partial class initial
+    [Migration("20191102002159_new2")]
+    partial class new2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,10 @@ namespace MakePlusWebAPI.Migrations
                     b.Property<int>("EmployeeId");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("Row_lst_upd_ts");
+
+                    b.Property<string>("Row_lst_upd_user");
 
                     b.Property<double>("Salary");
 
@@ -50,18 +54,24 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<double>("ProjectedHours");
 
+                    b.Property<string>("Row_lst_upd_ts");
+
+                    b.Property<string>("Row_lst_upd_user");
+
                     b.Property<double>("SalaryMultiplier");
 
                     b.HasKey("PhaseId", "EmployeeId");
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeAssignment");
+                    b.ToTable("EmployeeAssignments");
                 });
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Invoice", b =>
                 {
-                    b.Property<int>("InvoiceId");
+                    b.Property<int>("InvoiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("InvoiceAmount");
 
@@ -71,11 +81,15 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<int>("ProjectId");
 
+                    b.Property<string>("Row_lst_upd_ts");
+
+                    b.Property<string>("Row_lst_upd_user");
+
                     b.HasKey("InvoiceId");
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Invoice");
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("MakePlusWebAPI.Models.Phase", b =>
@@ -102,6 +116,10 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<int>("ProjectId");
 
+                    b.Property<string>("Row_lst_upd_ts");
+
+                    b.Property<string>("Row_lst_upd_user");
+
                     b.Property<DateTime>("StartDate");
 
                     b.HasKey("PhaseId");
@@ -115,6 +133,8 @@ namespace MakePlusWebAPI.Migrations
                 {
                     b.Property<int>("ProjectId");
 
+                    b.Property<string>("BusinessCode");
+
                     b.Property<double>("CostMultiplier");
 
                     b.Property<bool>("IsFollowUpSurveyComplete");
@@ -127,6 +147,8 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<bool>("IsProposal");
 
+                    b.Property<double>("MaterialBudget");
+
                     b.Property<double>("PercentageComplete");
 
                     b.Property<string>("ProjectDescription");
@@ -137,19 +159,54 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<DateTime>("ProjectStartDate");
 
+                    b.Property<string>("Row_lst_upd_ts");
+
+                    b.Property<string>("Row_lst_upd_user");
+
+                    b.Property<double>("SalaryBudget");
+
+                    b.Property<double>("SpentToDate");
+
+                    b.Property<double>("TotalInvoice");
+
+                    b.Property<bool>("isUnderISO13485");
+
                     b.HasKey("ProjectId");
 
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("MakePlusWebAPI.Models.ProjectedWorkload", b =>
+                {
+                    b.Property<int>("ProjectId");
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<int>("Month");
+
+                    b.Property<int>("Year");
+
+                    b.Property<double>("Hours");
+
+                    b.Property<string>("Row_lst_upd_ts");
+
+                    b.Property<string>("Row_lst_upd_user");
+
+                    b.HasKey("ProjectId", "EmployeeId", "Month", "Year");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("ProjectedWorkloads");
+                });
+
             modelBuilder.Entity("MakePlusWebAPI.Models.EmployeeAssignment", b =>
                 {
-                    b.HasOne("MakePlusWebAPI.Models.Employee")
+                    b.HasOne("MakePlusWebAPI.Models.Employee", "Employee")
                         .WithMany("EmployeeAssignments")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MakePlusWebAPI.Models.Phase")
+                    b.HasOne("MakePlusWebAPI.Models.Phase", "Phase")
                         .WithMany("EmployeeAssignments")
                         .HasForeignKey("PhaseId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -167,6 +224,19 @@ namespace MakePlusWebAPI.Migrations
                 {
                     b.HasOne("MakePlusWebAPI.Models.Project", "Project")
                         .WithMany("Phase")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MakePlusWebAPI.Models.ProjectedWorkload", b =>
+                {
+                    b.HasOne("MakePlusWebAPI.Models.Employee", "Employee")
+                        .WithMany("ProjectedWorkloads")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MakePlusWebAPI.Models.Project", "Project")
+                        .WithMany("ProjectedWorkloads")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

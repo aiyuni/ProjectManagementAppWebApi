@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MakePlusWebAPI.Models;
-using MakePlusWebAPI.Models.DataManager;
 using MakePlusWebAPI.Models.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +33,10 @@ namespace MakePlusWebAPI
             services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("ConnString")));
             services.AddScoped<IDataRepository<Employee>, EmployeeRepository>();
             services.AddScoped<IDataRepository<Project>, ProjectRepository>();
+            services.AddScoped<IDataRepository<Phase>, PhaseRepository>();
+            services.AddScoped<IDataRepository<EmployeeAssignment>, EmployeeAssignmentRepository>();
+            services.AddScoped<IDataRepository<ProjectedWorkload>, ProjectedWorkloadRepository>();
+            services.AddScoped<IDataRepository<Invoice>, InvoiceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

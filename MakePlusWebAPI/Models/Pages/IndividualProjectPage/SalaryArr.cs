@@ -13,5 +13,10 @@ namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
         public double wage { get; set; }
         public double budgetHr { get; set; }
         public double budget { get; set; }
+
+        public SalaryArr()
+        {
+
+        }
     }
 }

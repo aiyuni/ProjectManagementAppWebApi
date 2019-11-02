@@ -22,12 +22,19 @@ namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
         public bool progressSurveySent { get; set; }
         public bool followupSurveySent { get; set; }
         public bool followupSurveyResult { get; set; }
+        public bool isProposal { get; set; }
+        public bool isUnderISO13485 { get; set; }
+        public double costMultiplier { get; set; }
+        public string businessCode { get; set; }
+
         public List<Lead> lead { get; set; }
         public List<Member> member { get; set; }
         public List<PhaseArr> phaseArr { get; set; }
         public List<WorkloadArr> workloadArr { get; set; }
-        public List<SalaryArr> salaryArr { get; set; }
+        //public List<SalaryArr> salaryArr { get; set; }  removed
         public List<InvoiceArr> invoiceArr { get; set; }
         public List<Material> material { get; set; }
+
+        public List<EmployeeSalary> employeeSalaryList { get; set; }
     }
 }

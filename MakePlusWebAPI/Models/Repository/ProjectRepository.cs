@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MakePlusWebAPI.Models.Repository
 {
@@ -39,6 +40,7 @@ namespace MakePlusWebAPI.Models.Repository
             }
 
             _ProjectDbContext.SaveChanges();
+            _ProjectDbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public void Delete(Project entity)
@@ -46,9 +48,9 @@ namespace MakePlusWebAPI.Models.Repository
             throw new NotImplementedException();
         }
 
-        public Project Get(long id)
+        public Project Get(int id)
         {
-            throw new NotImplementedException();
+            return _ProjectDbContext.Projects.Find(id);
         }
 
         public IEnumerable<Project> GetAll()
@@ -60,6 +62,20 @@ namespace MakePlusWebAPI.Models.Repository
         {
             _ProjectDbContext.Entry(dbEntity).CurrentValues.SetValues(entity);
             System.Diagnostics.Debug.Write("Updated...");
+        }
+
+        public int GetMaxId()
+        {
+            int maxId = 0;
+            foreach (Project item in GetAll())
+            {
+                if (item.ProjectId > maxId)
+                {
+                    maxId = item.ProjectId;
+                }
+            }
+
+            return maxId;
         }
     }
 }
