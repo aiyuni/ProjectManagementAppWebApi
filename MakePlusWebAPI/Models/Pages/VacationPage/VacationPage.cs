@@ -7,6 +7,7 @@ namespace MakePlusWebAPI.Models.Pages.VacationPage
 {
     public class VacationPage
     {
+        //vacation Page JSON
         public int empID { get; set; }
         public string empName { get; set; }
         public int month1 { get; set; }
