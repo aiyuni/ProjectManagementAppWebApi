@@ -17,10 +17,12 @@ namespace MakePlusWebAPI.Controllers
     {
 
         private readonly IDataRepository<Employee> _employeeRepository;
+        private readonly IDataRepository<Vacation> _vacationRepository;
 
 
-        public EmployeePageController(IDataRepository<Employee> employeeRepository){
+        public EmployeePageController(IDataRepository<Employee> employeeRepository, IDataRepository<Vacation> vacationRepository){
             this._employeeRepository = employeeRepository;
+            this._vacationRepository = vacationRepository;
         }
 
 
@@ -45,6 +47,22 @@ namespace MakePlusWebAPI.Controllers
             Employee employee = new Employee(page.empID, page.name, page.wage);
             _employeeRepository.Add(employee);
 
+
+            Vacation vacay = new Vacation();
+
+            vacay.EmployeeId = page.empID;
+            vacay.EmployeeName = page.name;
+            for(int i = 0; i < 6; i++)
+            {
+                vacay.Month = DateTime.Now.AddMonths(i).Month;
+                vacay.Year = DateTime.Now.AddMonths(i).Year;
+                vacay.Hours = 0;
+            }
+            _vacationRepository.Add(vacay);
+
+            
+            //Vacation vacation = new Vacation(page.empID, page.name, 0, 0, 0, 0, 0, 0);
+            
 
             if (page == null)
             {

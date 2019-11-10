@@ -49,6 +49,7 @@ namespace MakePlusWebAPI.Models.Repository
             throw new NotImplementedException();
         }
 
+
         public ProjectedWorkload Get(int id)
         {
             throw new NotImplementedException();
@@ -61,7 +62,7 @@ namespace MakePlusWebAPI.Models.Repository
 
         public IEnumerable<ProjectedWorkload> GetAll()
         {
-            throw new NotImplementedException();
+            return _projectedWorkloadDbContext.ProjectedWorkloads.ToList();
         }
 
         public int GetMaxId()

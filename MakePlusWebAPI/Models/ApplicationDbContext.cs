@@ -20,6 +20,7 @@ namespace MakePlusWebAPI.Models
         public DbSet<EmployeeAssignment> EmployeeAssignments { get; set; }
         public DbSet<ProjectedWorkload> ProjectedWorkloads { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Vacation> Vacations { get; set; }
 
         // public DbSet<EmployeeAssignment> EmployeeAssignments { get; set; }
 
@@ -43,6 +44,10 @@ namespace MakePlusWebAPI.Models
             modelBuilder.Entity<Employee>().HasKey(p => p.EmployeeId);
             modelBuilder.Entity<Phase>().HasKey(p => p.PhaseId);
             modelBuilder.Entity<Invoice>().HasKey(i => i.InvoiceId);
+            modelBuilder.Entity<Vacation>().HasKey(v => new { v.EmployeeId, v.EmployeeName, v.Month, v.Year });
+            modelBuilder.Entity<Vacation>().HasOne(v => v.Employee).WithMany(p => p.Vacations)
+                .HasForeignKey(v => v.EmployeeId);
+
 
 
         }
