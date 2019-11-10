@@ -67,7 +67,6 @@ namespace MakePlusWebAPI.Models.Repository
             return _EmployeeAssignmentDbContext.EmployeeAssignments.ToList();
         }
 
-        //need to fix update logic check! check if PhaseID AND EmployeeId both match, not just PhaseId
         public void Update(EmployeeAssignment dbEntity, EmployeeAssignment entity)
         {
             _EmployeeAssignmentDbContext.Entry(dbEntity).Property(x => x.EmployeeId).IsModified = false;

@@ -105,6 +105,7 @@ namespace MakePlusWebAPI.Controllers
             individualProjectPage.member = memberList.ToList();
 
             individualProjectPage.phaseArr = new List<PhaseArr>();
+
             for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)  //getMaxId returns the last id of the table, so it must be <=
             {
                 if (_phaseRepository.Get(i) != null && _phaseRepository.Get(i).ProjectId == id)
@@ -253,7 +254,7 @@ namespace MakePlusWebAPI.Controllers
                         if (ea.EmployeeId == page.lead[z].empID)
                         {
                             ea.IsProjectManager = true;
-                        }
+                        } 
                         else
                         {
                             ea.IsProjectManager = false;
