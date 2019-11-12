@@ -7,6 +7,9 @@ using MakePlusWebAPI.Models.Pages.VacationPage;
 using MakePlusWebAPI.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace MakePlusWebAPI.Controllers
 {
@@ -40,27 +43,32 @@ namespace MakePlusWebAPI.Controllers
 
         // POST: api/VacationPage
         [HttpPost]
-        public IActionResult Post(Vacation vacay)
+        public IActionResult Post(JArray jsonArray)
         {
-
-            Vacation vacation = new Vacation();
-            vacation.EmployeeId = vacay.EmployeeId;
-            vacation.EmployeeName = vacay.EmployeeName;
-            vacation.Year = vacay.Year;
-            vacation.Month = vacay.Month;
-            vacation.Hours = vacay.Hours;
-
-            _vacationRepository.Add(vacation);
-
-
-            if (vacay == null)
+            System.Diagnostics.Debug.WriteLine("json array is: " + jsonArray);
+            foreach(var item in jsonArray)
             {
-                return new OkObjectResult(200);
+                //System.Diagnostics.Debug.WriteLine("json item is: " + item);
             }
-            else
+            System.Diagnostics.Debug.WriteLine("json array to string is: " + jsonArray.ToString());
+            var obj = JsonConvert.DeserializeObject<List<VacationArr>>(jsonArray.ToString());
+
+            foreach(var item in obj)
             {
-                return new OkObjectResult(400);
+                System.Diagnostics.Debug.WriteLine("vacationArr is: " + item.ToString());
+                for (int i = 0; i < 6; i++)
+                {
+                    Vacation vacation = new Vacation();
+                    vacation.EmployeeId = item.empID;
+                    vacation.EmployeeName = item.empName;
+                    vacation.Month = DateTime.Now.AddMonths(i).Month;
+                    vacation.Year = DateTime.Now.AddMonths(i).Year;
+                    vacation.Hours = item.getVacationHours(i + 1);
+                    _vacationRepository.Add(vacation);
+                }
+
             }
+            return new OkObjectResult(402);
         }
 
 

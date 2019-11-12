@@ -33,8 +33,7 @@ namespace MakePlusWebAPI.Models.Repository
             else
             {
                 System.Diagnostics.Debug.Write("record already exists, updating...");
-                Vacation vacayExist = _vacationContext.Vacations.FirstOrDefault(p => p.EmployeeId == vacay.EmployeeId && p.EmployeeName == vacay.EmployeeName
-                                                                                    && p.Month == vacay.Month && p.Year == vacay.Year);
+                Vacation vacayExist = _vacationContext.Vacations.FirstOrDefault(p => p.EmployeeId == vacay.EmployeeId && p.Month == vacay.Month && p.Year == vacay.Year);
 
                 this.Update(vacayExist, vacay);
             }
@@ -64,11 +63,11 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Update(Vacation dbEntity, Vacation entity)
         {
-            _vacationContext.Entry(dbEntity).Property(x => x.EmployeeId).IsModified = false;
+           /* _vacationContext.Entry(dbEntity).Property(x => x.EmployeeId).IsModified = false;
             _vacationContext.Entry(dbEntity).Property(x => x.EmployeeName).IsModified = false;
             _vacationContext.Entry(dbEntity).Property(x => x.Year).IsModified = false;
             _vacationContext.Entry(dbEntity).Property(x => x.Month).IsModified = false;
-            _vacationContext.SaveChanges();
+            _vacationContext.SaveChanges(); */
             
 
             _vacationContext.Entry(dbEntity).Property(x => x.Hours).CurrentValue = entity.Hours;
