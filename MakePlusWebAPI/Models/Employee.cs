@@ -22,6 +22,8 @@ namespace MakePlusWebAPI.Models
         public IList<EmployeeAssignment> EmployeeAssignments { get; set; }
         public IList<ProjectedWorkload> ProjectedWorkloads { get; set; }
 
+        public IList<Vacation> Vacations { get; set; }
+
         public Employee(int employeeId, string name, double salary)
         {
             this.EmployeeId = employeeId;

@@ -37,6 +37,7 @@ namespace MakePlusWebAPI
             services.AddScoped<IDataRepository<EmployeeAssignment>, EmployeeAssignmentRepository>();
             services.AddScoped<IDataRepository<ProjectedWorkload>, ProjectedWorkloadRepository>();
             services.AddScoped<IDataRepository<Invoice>, InvoiceRepository>();
+            services.AddScoped<IDataRepository<Vacation>, VacationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

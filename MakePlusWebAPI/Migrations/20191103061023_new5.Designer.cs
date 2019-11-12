@@ -4,14 +4,16 @@ using MakePlusWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MakePlusWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191103061023_new5")]
+    partial class new5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,27 +199,6 @@ namespace MakePlusWebAPI.Migrations
                     b.ToTable("ProjectedWorkloads");
                 });
 
-            modelBuilder.Entity("MakePlusWebAPI.Models.Vacation", b =>
-                {
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<string>("EmployeeName");
-
-                    b.Property<int>("Month");
-
-                    b.Property<int>("Year");
-
-                    b.Property<double>("Hours");
-
-                    b.Property<string>("Row_lst_upd_ts");
-
-                    b.Property<string>("Row_lst_upd_user");
-
-                    b.HasKey("EmployeeId", "EmployeeName", "Month", "Year");
-
-                    b.ToTable("Vacations");
-                });
-
             modelBuilder.Entity("MakePlusWebAPI.Models.EmployeeAssignment", b =>
                 {
                     b.HasOne("MakePlusWebAPI.Models.Employee", "Employee")
@@ -257,14 +238,6 @@ namespace MakePlusWebAPI.Migrations
                     b.HasOne("MakePlusWebAPI.Models.Project", "Project")
                         .WithMany("ProjectedWorkloads")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MakePlusWebAPI.Models.Vacation", b =>
-                {
-                    b.HasOne("MakePlusWebAPI.Models.Employee", "Employee")
-                        .WithMany("Vacations")
-                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
