@@ -48,17 +48,21 @@ namespace MakePlusWebAPI.Controllers
             _employeeRepository.Add(employee);
 
 
-            Vacation vacay = new Vacation();
-
-            vacay.EmployeeId = page.empID;
-            vacay.EmployeeName = page.name;
+            
             for(int i = 0; i < 6; i++)
             {
+                Vacation vacay = new Vacation();
+
+                vacay.EmployeeId = page.empID;
+                vacay.EmployeeName = page.name;
                 vacay.Month = DateTime.Now.AddMonths(i).Month;
                 vacay.Year = DateTime.Now.AddMonths(i).Year;
                 vacay.Hours = 0;
+                _vacationRepository.Add(vacay);
             }
-            _vacationRepository.Add(vacay);
+            
+
+
 
             
             //Vacation vacation = new Vacation(page.empID, page.name, 0, 0, 0, 0, 0, 0);

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MakePlusWebAPI.Models.Repository
 {
-    public class VacationRepository
+    public class VacationRepository : IDataRepository<Vacation>
     {
         private readonly ApplicationDbContext _vacationContext;
 
@@ -42,9 +42,24 @@ namespace MakePlusWebAPI.Models.Repository
             _vacationContext.Entry(vacay).State = EntityState.Detached;
         }
 
+        public void Delete(Vacation entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vacation Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Vacation> GetAll()
         {
             return _vacationContext.Vacations.ToList();
+        }
+
+        public int GetMaxId()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Vacation dbEntity, Vacation entity)
