@@ -19,25 +19,18 @@ namespace MakePlusWebAPI.Controllers
         private readonly IDataRepository<Employee> _employeeRepository;
         private readonly IDataRepository<Vacation> _vacationRepository;
 
-
         public EmployeePageController(IDataRepository<Employee> employeeRepository, IDataRepository<Vacation> vacationRepository){
             this._employeeRepository = employeeRepository;
             this._vacationRepository = vacationRepository;
         }
 
-
         // GET: api/EmployeePage
         [HttpGet]
         public IActionResult Get()
         {
-
             return Ok(_employeeRepository.GetAll());
-            //System.Diagnostics.Debug.WriteLine("Not implemented GET method yet");
-
             //return new OkObjectResult(400);
         }
-
-
 
         // POST: api/EmployeePage
         [HttpPost]
@@ -47,8 +40,7 @@ namespace MakePlusWebAPI.Controllers
             Employee employee = new Employee(page.empID, page.name, page.wage);
             _employeeRepository.Add(employee);
 
-
-            
+            //Post default 6 month vacation data for the employee with hours set to 0
             for(int i = 0; i < 6; i++)
             {
                 Vacation vacay = new Vacation();
@@ -60,24 +52,10 @@ namespace MakePlusWebAPI.Controllers
                 vacay.Hours = 0;
                 _vacationRepository.Add(vacay);
             }
-            
 
-
-
-            
-            //Vacation vacation = new Vacation(page.empID, page.name, 0, 0, 0, 0, 0, 0);
-            
-
-            if (page == null)
-            {
-                return new OkObjectResult(200);
-            }
-            else
-            {
-                return new OkObjectResult(400);
-            }
+            return new OkObjectResult(200);
         }
-        
+
         /*
         // PUT: api/EmployeePage/5
         [HttpPut("{id}")]
@@ -91,5 +69,13 @@ namespace MakePlusWebAPI.Controllers
         {
         }
         */
+
+        [HttpGet]
+        [Route("totalEmployees")]  //api/EmployeePage/totalEmployees
+        public IActionResult GetNumberOfEmployees()
+        {
+            return new OkObjectResult(_employeeRepository.GetAll().Count());
+        }
+
     }
 }

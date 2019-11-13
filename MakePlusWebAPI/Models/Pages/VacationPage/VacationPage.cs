@@ -10,7 +10,6 @@ namespace MakePlusWebAPI.Models.Pages.VacationPage
     [JsonObject]
     public class VacationPage : IEnumerable<VacationArr>
     {
-
         //vacation Page JSON
         public List<VacationArr> VacationArrList { get; set; }
 

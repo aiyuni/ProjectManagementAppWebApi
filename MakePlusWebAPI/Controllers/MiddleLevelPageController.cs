@@ -22,7 +22,6 @@ namespace MakePlusWebAPI.Controllers
             this._workloadRepository = workloadRepository;
         }
 
-
         // GET: api/MiddleLevelPage
         [HttpGet]
         public IActionResult Get()
