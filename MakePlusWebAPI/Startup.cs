@@ -30,6 +30,14 @@ namespace MakePlusWebAPI
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
+
             services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("ConnString")));
             services.AddScoped<IDataRepository<Employee>, EmployeeRepository>();
             services.AddScoped<IDataRepository<Project>, ProjectRepository>();
@@ -53,6 +61,7 @@ namespace MakePlusWebAPI
                 app.UseHsts();
             }
 
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
