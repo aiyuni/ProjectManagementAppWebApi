@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.VacationPage
 {
+    //Note: This class currently has no references.
     [JsonObject]
     public class VacationPage : IEnumerable<VacationArr>
     {

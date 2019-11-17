@@ -18,7 +18,7 @@ namespace MakePlusWebAPI.Models.Pages.VacationPage
         public int month5 { get; set; }
         public int month6 { get; set; }
 
-        public int getVacationHours(int monthInt)
+        public int GetVacationHours(int monthInt)
         {
             switch (monthInt)
             {

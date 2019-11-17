@@ -45,11 +45,7 @@ namespace MakePlusWebAPI.Controllers
         [HttpPost]
         public IActionResult Post(JArray jsonArray)
         {
-            System.Diagnostics.Debug.WriteLine("json array is: " + jsonArray);
-            foreach(var item in jsonArray)
-            {
-                //System.Diagnostics.Debug.WriteLine("json item is: " + item);
-            }
+
             System.Diagnostics.Debug.WriteLine("json array to string is: " + jsonArray.ToString());
             var obj = JsonConvert.DeserializeObject<List<VacationArr>>(jsonArray.ToString());
 
@@ -63,7 +59,7 @@ namespace MakePlusWebAPI.Controllers
                     vacation.EmployeeName = item.empName;
                     vacation.Month = DateTime.Now.AddMonths(i).Month;
                     vacation.Year = DateTime.Now.AddMonths(i).Year;
-                    vacation.Hours = item.getVacationHours(i + 1);
+                    vacation.Hours = item.GetVacationHours(i + 1);
                     _vacationRepository.Add(vacation);
                 }
 
