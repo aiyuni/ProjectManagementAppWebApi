@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakePlusWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191112071405_newmigration")]
-    partial class newmigration
+    [Migration("20191119055702_peter2")]
+    partial class peter2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,6 +136,8 @@ namespace MakePlusWebAPI.Migrations
                     b.Property<string>("BusinessCode");
 
                     b.Property<double>("CostMultiplier");
+
+                    b.Property<string>("EmployeeName");
 
                     b.Property<bool>("IsFollowUpSurveyComplete");
 
