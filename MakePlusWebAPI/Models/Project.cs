@@ -32,7 +32,7 @@ namespace MakePlusWebAPI.Models
         public string BusinessCode { get; set; }
         public double CostMultiplier { get; set; }
 
-        //public string EmployeeName { get; set; }
+        public string EmployeeName { get; set; }
         public string Row_lst_upd_ts { get; set; }
         public string Row_lst_upd_user { get; set; }
 
@@ -48,9 +48,9 @@ namespace MakePlusWebAPI.Models
 
         public Project(int projectId, string projectName, string projectDescription, DateTime projectStartDate, DateTime projectEndDate, double percentageComplete,
             double salaryBudget, double totalInvoice, double materialBudget, double spentToDate, bool isInProgressSurveySent, bool isInProgressSurveyComplete,
-            bool isFollowUpSurveySent, bool isFollowUpSurveyComplete, bool isProposal, double costMultiplier, bool isUnderIso13485, string businessCode)
+            bool isFollowUpSurveySent, bool isFollowUpSurveyComplete, bool isProposal, double costMultiplier, bool isUnderIso13485, string businessCode, string empName)
         {
-            //, string empName <-- in the param
+            //  <-- in the param
             this.ProjectId = projectId;
             this.ProjectName = projectName;
             this.ProjectDescription = projectDescription;
@@ -69,7 +69,7 @@ namespace MakePlusWebAPI.Models
             this.CostMultiplier = costMultiplier;
             this.isUnderISO13485 = isUnderIso13485;
             this.BusinessCode = businessCode;
-            //this.EmployeeName = empName;
+            this.EmployeeName = empName;
             this.Row_lst_upd_ts = DateTime.Now.ToString();
             this.Row_lst_upd_user = System.Environment.UserName.ToString();
         }

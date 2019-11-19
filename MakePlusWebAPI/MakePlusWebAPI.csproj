@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20191118234506_new001.cs" />
-    <Compile Remove="Migrations\20191118234506_new001.Designer.cs" />
-    <Compile Remove="Migrations\20191118235528_peihou0.cs" />
-    <Compile Remove="Migrations\20191118235528_peihou0.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />

@@ -135,6 +135,8 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<double>("CostMultiplier");
 
+                    b.Property<string>("EmployeeName");
+
                     b.Property<bool>("IsFollowUpSurveyComplete");
 
                     b.Property<bool>("IsFollowUpSurveySent");

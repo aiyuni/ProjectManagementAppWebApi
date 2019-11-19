@@ -27,17 +27,18 @@ namespace MakePlusWebAPI.Controllers
 
             foreach(Project item in _projectRepository.GetAll())
             {
-                /*
+                
                 if (!item.IsProposal)
                 {
                     projects.Add(new ProjectsArr(item.ProjectId, item.ProjectName,
-                        item.EmployeeName, item.ProjectStartDate, item.ProjectEndDate,
+                        "item.EmployeeName", item.ProjectStartDate, item.ProjectEndDate,
                         item.PercentageComplete, item.SalaryBudget, item.TotalInvoice,
                         item.SpentToDate, item.isUnderISO13485, item.BusinessCode,
                         item.IsInProgressSurveySent, item.IsInProgressSurveyComplete,
                         item.IsFollowUpSurveySent, item.IsFollowUpSurveyComplete));
                 }
-                */
+                
+                
             }
             return Ok(projects);
         }
@@ -46,7 +47,19 @@ namespace MakePlusWebAPI.Controllers
         [Route("proposals")]//GET: api/HighLevelPage/proposals
         public IActionResult GetProposals()
         {
-            return Ok(_projectRepository.GetAll());
+            List<ProposalsArr> proposals = new List<ProposalsArr>();
+
+            foreach (Project item in _projectRepository.GetAll())
+            {
+
+                if (item.IsProposal)
+                {
+                    proposals.Add(new ProposalsArr(item.ProjectId, item.ProjectName, item.EmployeeName, item.SalaryBudget));
+                }
+
+
+            }
+            return Ok(proposals);
         }
 
         // GET: api/HighLevelPage/5

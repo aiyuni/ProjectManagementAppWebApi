@@ -11,6 +11,19 @@ namespace MakePlusWebAPI.Models.Pages.HighLevelPage
         public int projectID { get; set; }
         public string projectName { get; set; }
         public string leadName { get; set; }
-        public int salaryBudget { get; set; }
+        public double salaryBudget { get; set; }
+
+        public ProposalsArr()
+        {
+
+        }
+        public ProposalsArr(int projId, string projName, string leadN, double salaryB)
+        {
+            this.projectID = projId;
+            this.projectName = projName;
+            this.leadName = leadN;
+            this.salaryBudget = salaryB;
+
+        }
     }
 }
