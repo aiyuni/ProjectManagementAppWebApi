@@ -23,23 +23,50 @@ namespace MakePlusWebAPI.Controllers
         {
             this._vacationRepository = vacationRepository;
         }
+        /*
+     // GET: api/VacationPage/5
+     [HttpGet("{id}", Name = "Get")]
+     public string Get(int id)
+     {
+         return "value";
+     }
+     */
+
         // GET: api/VacationPage
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_vacationRepository.GetAll());
+            //return Ok(_vacationRepository.GetAll());
+            List<VacationArr> vacayArr = new List<VacationArr>();
+
+            foreach (Vacation item in _vacationRepository.GetAll())
+            {
+                VacationArr vacay = new VacationArr();
+                vacay.empID = item.EmployeeId;
+                vacay.empName = item.EmployeeName;
+                foreach(Vacation item2 in _vacationRepository.GetAll())
+                {
+                    if(item2.EmployeeId == vacay.empID)
+                    {
+                        vacay.SetVacationHours(item2.Year, item2.Month, item2.Hours);
+                    }
+                }
+                vacayArr.Add(vacay);
+            }
+
+            HashSet<VacationArr> vacaySet = new HashSet<VacationArr>();
+            for(int i = 0; i < vacayArr.Count; i++)
+            {
+                vacaySet.Add(vacayArr.ElementAt(i));
+            }
+
+            List<VacationArr> returnVacay = new List<VacationArr>();
+            for(int i = 0; i < vacaySet.Count; i++)
+            {
+                returnVacay.Add(vacaySet.ElementAt(i));
+            }
+            return Ok(returnVacay);
         }
-
-        /*
-        // GET: api/VacationPage/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-        */
-
-
 
         // POST: api/VacationPage
         [HttpPost]
@@ -64,6 +91,7 @@ namespace MakePlusWebAPI.Controllers
                 }
 
             }
+            
             return new OkObjectResult(402);
         }
 

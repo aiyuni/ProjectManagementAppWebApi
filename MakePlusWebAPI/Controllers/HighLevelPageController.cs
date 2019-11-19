@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -18,6 +19,11 @@ namespace MakePlusWebAPI.Controllers
     public class HighLevelPageController : ControllerBase
     {
         private readonly IDataRepository<Project> _projectRepository;
+
+        public HighLevelPageController(IDataRepository<Project> projectRepository)
+        {
+            this._projectRepository = projectRepository;
+        }
         
         [HttpGet]
         [Route("projects")]//GET: api/HighLevelPage/projects
