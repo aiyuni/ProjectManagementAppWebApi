@@ -19,9 +19,7 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Add(EmployeeAssignment entity)
         {
-            System.Diagnostics.Debug.WriteLine("Inside Add method of EmployeeAssignmentRepository");
-            EmployeeAssignment existingEA;
-            //System.Diagnostics.Debug.WriteLine("Existing project id: " + _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
+
             if (_EmployeeAssignmentDbContext.EmployeeAssignments.Any(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId) == false)
             {
                 System.Diagnostics.Debug.WriteLine("record doesnt exist, adding...");
@@ -31,7 +29,7 @@ namespace MakePlusWebAPI.Models.Repository
             else
             {
                 System.Diagnostics.Debug.Write("record already exists, updating...");
-                existingEA = _EmployeeAssignmentDbContext.EmployeeAssignments.FirstOrDefault(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId);
+                EmployeeAssignment existingEA = _EmployeeAssignmentDbContext.EmployeeAssignments.FirstOrDefault(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId);
                 this.Update(existingEA, entity);
                 //_ProjectDbContext.Projects.Update();
             }
@@ -40,11 +38,16 @@ namespace MakePlusWebAPI.Models.Repository
             {
                 _EmployeeAssignmentDbContext.SaveChanges();
                 _EmployeeAssignmentDbContext.Entry(entity).State = EntityState.Detached;
-            } catch (Exception e)
+            }
+            catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine("caught weird exception: " + e.ToString());
-                //_EmployeeAssignmentDbContext.Entry(existingEA).Reload();
-                //this.Update(existingEA, entity);
+                System.Diagnostics.Debug.WriteLine("caught weird exception: " + exception.ToString());
+                //Various attempts that failed...
+              /*   _EmployeeAssignmentDbContext.ChangeTracker.Entries().Where(e => e.Entity != null).ToList().ForEach(e=>e.State=EntityState.Detached);
+                 EmployeeAssignment tempEA = _EmployeeAssignmentDbContext.EmployeeAssignments.First();
+                this.Update(tempEA, entity);
+                _EmployeeAssignmentDbContext.SaveChanges();
+                _EmployeeAssignmentDbContext.Entry(entity).State = EntityState.Detached; */
             }
         }
 

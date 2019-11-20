@@ -314,7 +314,7 @@ namespace MakePlusWebAPI.Controllers
                 ea.EmployeeId = page.employeeSalaryList[i].empID;
 
                 ea.Position = "somePosition"; //hardcoded for now? 
-                ea.SalaryMultiplier = 69.9;
+                ea.SalaryMultiplier = page.costMultiplier;
 
                 for (int j = 0; j < page.employeeSalaryList[i].phaseDetailsList.Count; j++)
                 {
