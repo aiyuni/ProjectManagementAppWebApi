@@ -20,23 +20,32 @@ namespace MakePlusWebAPI.Models.Repository
         public void Add(EmployeeAssignment entity)
         {
             System.Diagnostics.Debug.WriteLine("Inside Add method of EmployeeAssignmentRepository");
-
+            EmployeeAssignment existingEA;
             //System.Diagnostics.Debug.WriteLine("Existing project id: " + _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
-            if (_EmployeeAssignmentDbContext.EmployeeAssignments.Any(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId ) == false)
+            if (_EmployeeAssignmentDbContext.EmployeeAssignments.Any(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId) == false)
             {
                 System.Diagnostics.Debug.WriteLine("record doesnt exist, adding...");
                 _EmployeeAssignmentDbContext.Add(entity); //instance of entity type cannot be tracked because another instance with the same key value (phaseid, employeeid) is already being tracked
             }
+
             else
             {
                 System.Diagnostics.Debug.Write("record already exists, updating...");
-                EmployeeAssignment existingEA = _EmployeeAssignmentDbContext.EmployeeAssignments.FirstOrDefault(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId);
+                existingEA = _EmployeeAssignmentDbContext.EmployeeAssignments.FirstOrDefault(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId);
                 this.Update(existingEA, entity);
                 //_ProjectDbContext.Projects.Update();
             }
 
-            _EmployeeAssignmentDbContext.SaveChanges();
-            _EmployeeAssignmentDbContext.Entry(entity).State = EntityState.Detached;
+            try
+            {
+                _EmployeeAssignmentDbContext.SaveChanges();
+                _EmployeeAssignmentDbContext.Entry(entity).State = EntityState.Detached;
+            } catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("caught weird exception: " + e.ToString());
+                //_EmployeeAssignmentDbContext.Entry(existingEA).Reload();
+                //this.Update(existingEA, entity);
+            }
         }
 
         public void Delete(EmployeeAssignment entity)
