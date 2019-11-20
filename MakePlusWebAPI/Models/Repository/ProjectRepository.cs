@@ -20,11 +20,6 @@ namespace MakePlusWebAPI.Models.Repository
             System.Diagnostics.Debug.WriteLine("Inside Add method of ProjectRepository");
             System.Diagnostics.Debug.WriteLine("Project being added is: " + entity.ToString());
 
-            if (_ProjectDbContext.Projects.FirstOrDefault() != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Existing project id: " + 
-                    _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
-            }
             //System.Diagnostics.Debug.WriteLine("Existing project id: " + _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
             if (_ProjectDbContext.Projects.Any(p => p.ProjectId == entity.ProjectId) == false)
             {

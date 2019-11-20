@@ -106,18 +106,31 @@ namespace MakePlusWebAPI.Controllers
 
             individualProjectPage.phaseArr = new List<PhaseArr>();
 
-            for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)  //getMaxId returns the last id of the table, so it must be <=
+            /*for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)  //getMaxId returns the last id of the table, so it must be <=
             {
                 if (_phaseRepository.Get(i) != null && _phaseRepository.Get(i).ProjectId == id)
                 {
                     Phase currentPhase = _phaseRepository.Get(i);
-                    individualProjectPage.phaseArr.Add(new PhaseArr(currentPhase.PhaseId, currentPhase.Name, currentPhase.StartDate, currentPhase.EndDate, currentPhase.IsRecordDone,
+                    individualProjectPage.phaseArr.Add(new PhaseArr(currentPhase.PhaseId, currentPhase.Name,
+                        currentPhase.StartDate, currentPhase.EndDate, currentPhase.IsRecordDone,
                         currentPhase.PredictedDurationInWeeks, currentPhase.ActualDurationInWeeks, currentPhase.Impact));
+                }
+            } */
+
+            foreach(Phase phase in _phaseRepository.GetAll())
+            {
+                if(phase.ProjectId == id)
+                {
+                    individualProjectPage.phaseArr.Add(new PhaseArr(phase.PhaseId, phase.Name, phase.StartDate,
+                        phase.EndDate, phase.IsRecordDone, phase.PredictedDurationInWeeks, phase.ActualDurationInWeeks,
+                        phase.Impact));
                 }
             }
 
             individualProjectPage.workloadArr = new List<WorkloadArr>();
             WorkloadArr currentWorkloadArr = new WorkloadArr();
+
+            /*
             for (int i = 0; i <= _projectRepository.GetMaxId(); i++)
             {
                 if (_projectRepository.Get(i) != null && _projectRepository.Get(i).ProjectId == id)
@@ -153,14 +166,45 @@ namespace MakePlusWebAPI.Controllers
                                         .Get(i, j, currentMonth, currentYear).Hours);
                                 }
                             }
-                           /*currentWorkloadArr = new WorkloadArr(currentWorkloadArr.empID, currentWorkloadArr.empName, currentWorkloadArr.month1, currentWorkloadArr.month2,
-                                currentWorkloadArr.month3, currentWorkloadArr.month4, currentWorkloadArr.month5, currentWorkloadArr.month6); */  //Note: don't do this, add it directly instead!
                             individualProjectPage.workloadArr.Add(new WorkloadArr(currentWorkloadArr.empID, currentWorkloadArr.empName, currentWorkloadArr.month1, currentWorkloadArr.month2,
                                 currentWorkloadArr.month3, currentWorkloadArr.month4, currentWorkloadArr.month5, currentWorkloadArr.month6));
                         }
                     }
                 }
-            } 
+            } */
+
+            foreach(Project proj in _projectRepository.GetAll())
+            {
+                if(proj.ProjectId == id)
+                {
+                    foreach(Employee emp in _employeeRepository.GetAll())
+                    {
+                        ProjectedWorkload currentProjectedWorkload = _projectedWorkloadRepository.Get(proj, emp, DateTime.Now.Month,
+                            DateTime.Now.Year);
+                        if(currentProjectedWorkload != null)
+                        {
+                            for (int k = 0; k < 6; k++)
+                            {
+                                int currentMonth = DateTime.Now.AddMonths(k).Month;
+                                int currentYear = DateTime.Now.AddMonths(k).Year;
+
+                                if (emp.EmployeeId == _projectedWorkloadRepository
+                                        .Get(proj, emp, currentMonth, currentYear).EmployeeId
+                                    && proj.ProjectId == _projectedWorkloadRepository
+                                        .Get(proj, emp, currentMonth, currentYear).ProjectId)
+                                {
+                                    currentWorkloadArr.empID = emp.EmployeeId;
+                                    currentWorkloadArr.empName = emp.Name;
+                                    currentWorkloadArr.SetSpecificMonth(k + 1, _projectedWorkloadRepository
+                                        .Get(proj, emp, currentMonth, currentYear).Hours);
+                                }
+                            }
+                            individualProjectPage.workloadArr.Add(new WorkloadArr(currentWorkloadArr.empID, currentWorkloadArr.empName, currentWorkloadArr.month1, currentWorkloadArr.month2,
+                               currentWorkloadArr.month3, currentWorkloadArr.month4, currentWorkloadArr.month5, currentWorkloadArr.month6));
+                        }
+                    }
+                }
+            }
 
             individualProjectPage.invoiceArr = new List<InvoiceArr>();
             foreach (Invoice i in _invoiceRepository.GetAll())
@@ -172,7 +216,7 @@ namespace MakePlusWebAPI.Controllers
             }
 
             individualProjectPage.material = new List<Material>();
-            for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)
+            /*for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)
             {
                 if (_phaseRepository.Get(i) != null && _phaseRepository.Get(i).ProjectId ==id)
                 {
@@ -180,9 +224,19 @@ namespace MakePlusWebAPI.Controllers
                     individualProjectPage.material.Add(new Material(currentPhase.PhaseId, currentPhase.Name, currentPhase.MaterialActualBudget,
                         currentPhase.MaterialProjectedBudget, currentPhase.MaterialImpact));
                 }
+            }*/
+
+            foreach (Phase phase in _phaseRepository.GetAll())
+            {
+                if (phase.ProjectId == id)
+                {
+                    individualProjectPage.material.Add(new Material(phase.PhaseId, phase.Name, phase.MaterialActualBudget,
+                        phase.MaterialProjectedBudget, phase.MaterialImpact));
+                }
             }
 
             individualProjectPage.employeeSalaryList = new List<EmployeeSalary>();
+            /*
             for (int i = 0; i <= _employeeRepository.GetMaxId(); i++)
             {
                 if (_employeeRepository.Get(i) != null)
@@ -207,6 +261,25 @@ namespace MakePlusWebAPI.Controllers
                         individualProjectPage.employeeSalaryList.Add(new EmployeeSalary(currentEmployee.EmployeeId, currentEmployee.Name, currentEmployee.Salary, phaseDetailsList));
                     }
 
+                }
+            }
+            */
+
+            foreach(Employee emp in _employeeRepository.GetAll())
+            {
+                List<PhaseDetails> phaseDetailsList = new List<PhaseDetails>();
+                foreach(Phase phase in _phaseRepository.GetAll())
+                {
+                    if(phase.ProjectId == id && _employeeAssignmentRepository.Get(phase.PhaseId, emp.EmployeeId) != null)
+                    {
+                        EmployeeAssignment currentEmployeeAssignment = _employeeAssignmentRepository.Get(phase.PhaseId, emp.EmployeeId);
+                        phaseDetailsList.Add(new PhaseDetails(phase.PhaseId, phase.Name, currentEmployeeAssignment.ProjectedHours, 
+                            currentEmployeeAssignment.ActualHours, currentEmployeeAssignment.Impact));
+                    }
+                }
+                if (phaseDetailsList.Count != 0)  //to prevent all the employees from being added to the employeeSalaryList.  Only employees that are working on the project will be added. 
+                {
+                    individualProjectPage.employeeSalaryList.Add(new EmployeeSalary(emp.EmployeeId, emp.Name, emp.Salary, phaseDetailsList));
                 }
             }
             
@@ -297,27 +370,6 @@ namespace MakePlusWebAPI.Controllers
 
             return new OkObjectResult(201);
         }
-
-        /**
-         * Returns a single number which is the total number of Projects in the Project table
-         */
-        [HttpGet]
-        [Route("totalProjects")]  //api/IndividualProjectPages/totalProjects
-        public IActionResult GetNumberOfProjects()
-        {
-            return new OkObjectResult(_projectRepository.GetAll().Count());
-        }
-
-        /**
-      * Returns a single number which is the total number of Projects in the Project table
-      */
-        [HttpGet]
-        [Route("totalPhases")]
-        public IActionResult GetNumberOfPhases()
-        {
-            return new OkObjectResult(_phaseRepository.GetAll().Count());
-        }
-
 
     }
 }

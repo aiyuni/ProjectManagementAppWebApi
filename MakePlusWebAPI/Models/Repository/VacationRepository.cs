@@ -17,13 +17,6 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Add(Vacation vacay)
         {
-            if(_vacationContext.Vacations.FirstOrDefault() != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Existing Vacation"
-                    + _vacationContext.Vacations.FirstOrDefault().EmployeeId + ", new employee id: " + vacay.EmployeeId);
-
-
-            }
             if(_vacationContext.Vacations.Any(p => p.EmployeeId == vacay.EmployeeId && p.Month == vacay.Month 
                                                 && p.Year == vacay.Year) == false)
             {

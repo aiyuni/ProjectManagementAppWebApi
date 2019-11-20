@@ -19,14 +19,8 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Add(EmployeeAssignment entity)
         {
-
             System.Diagnostics.Debug.WriteLine("Inside Add method of EmployeeAssignmentRepository");
 
-            if (_EmployeeAssignmentDbContext.EmployeeAssignments.FirstOrDefault() != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Existing employeeassignment phase id: " +
-                                                   _EmployeeAssignmentDbContext.EmployeeAssignments.FirstOrDefault().PhaseId + ", new project id: " + entity.PhaseId);
-            }
             //System.Diagnostics.Debug.WriteLine("Existing project id: " + _ProjectDbContext.Projects.FirstOrDefault().ProjectId + ", new project id: " + entity.ProjectId);
             if (_EmployeeAssignmentDbContext.EmployeeAssignments.Any(p => p.PhaseId == entity.PhaseId && p.EmployeeId == entity.EmployeeId ) == false)
             {

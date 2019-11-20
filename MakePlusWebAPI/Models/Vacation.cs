@@ -9,9 +9,7 @@ namespace MakePlusWebAPI.Models
     {
 
         public int EmployeeId { get; set; }
-
         public string EmployeeName { get; set; }
-
         public int Month { get; set; }  //not primary keys
         public int Year { get; set; }
         public double Hours { get; set; }

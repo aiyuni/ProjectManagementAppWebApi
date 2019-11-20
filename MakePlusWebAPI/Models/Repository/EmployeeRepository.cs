@@ -17,16 +17,6 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Add(Employee entity)
         {
-            /*
-            _employeeContext.Employees.Add(entity);
-            _employeeContext.SaveChanges();
-            */
-            if(_employeeContext.Employees.FirstOrDefault() != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Existing Employee id: " +
-                    _employeeContext.Employees.FirstOrDefault().EmployeeId + ", new employee id: " + entity.EmployeeId);
-
-            }
             if(_employeeContext.Employees.Any(p => p.EmployeeId == entity.EmployeeId) == false)
             {
                 System.Diagnostics.Debug.WriteLine("record doesnt exist, adding...");

@@ -56,6 +56,8 @@ namespace MakePlusWebAPI.Controllers
             return new OkObjectResult(200);
         }
 
+        /**
+         * Employee Page cannot Put.  
         /*
         // PUT: api/EmployeePage/5
         [HttpPut("{id}")]
@@ -63,6 +65,9 @@ namespace MakePlusWebAPI.Controllers
         {
         }
 
+        /**
+        * Employee Page cannot Delete. 
+        * 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)

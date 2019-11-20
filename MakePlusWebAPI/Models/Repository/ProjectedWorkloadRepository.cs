@@ -55,9 +55,20 @@ namespace MakePlusWebAPI.Models.Repository
             throw new NotImplementedException();
         }
 
+        /**
+         *Get method. Obtains the Projected Workload based on the given primary keys.
+         */
         public ProjectedWorkload Get(int projectId, int employeeId, int month, int year)
         {
             return _projectedWorkloadDbContext.ProjectedWorkloads.Find(projectId, employeeId, month, year);
+        }
+
+        /** 
+         * Overloaded Get method. Accepts a Project and Employee to get the Projected Workload
+         */
+        public ProjectedWorkload Get(Project project, Employee emp, int month, int year)
+        {
+            return _projectedWorkloadDbContext.ProjectedWorkloads.Find(project.ProjectId, emp.EmployeeId, month, year);
         }
 
         public IEnumerable<ProjectedWorkload> GetAll()

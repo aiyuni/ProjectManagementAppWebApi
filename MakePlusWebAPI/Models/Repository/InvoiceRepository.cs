@@ -13,13 +13,8 @@ namespace MakePlusWebAPI.Models.Repository
         {
             this._invoiceDbContext = context;
         }
-
         public void Add(Invoice entity)
         {
-            if (_invoiceDbContext.Invoices.FirstOrDefault() != null)
-            {
-
-            }
 
             if (_invoiceDbContext.Invoices.Any(i => i.InvoiceId == entity.InvoiceId) == false)
             {

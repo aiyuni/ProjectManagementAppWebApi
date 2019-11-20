@@ -28,17 +28,10 @@ namespace MakePlusWebAPI.Controllers
         {
             return Ok(_workloadRepository.GetAll());
         }
-
-
-        /*
-        // GET: api/MiddleLevelPage/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-        */
-
+     
+        /**
+         * No Post in Middle Level Page. This is an App feature.
+         * */
         /*
         // POST: api/MiddleLevelPage
         [HttpPost]
@@ -47,18 +40,22 @@ namespace MakePlusWebAPI.Controllers
             ProjectedWorkload projectedWorkload = new ProjectedWorkload();
         }
         */
+       
 
+        /**
+         * No PUT in Middle Level Page. This is an App feature.
+         * /
         // PUT: api/MiddleLevelPage/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
+        */
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
-        
+        }   
     }
 }

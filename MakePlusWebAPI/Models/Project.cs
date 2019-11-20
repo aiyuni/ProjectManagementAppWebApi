@@ -13,7 +13,6 @@ namespace MakePlusWebAPI.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProjectId { get; set; }
-
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
         public DateTime ProjectStartDate { get; set; }
@@ -50,7 +49,6 @@ namespace MakePlusWebAPI.Models
             double salaryBudget, double totalInvoice, double materialBudget, double spentToDate, bool isInProgressSurveySent, bool isInProgressSurveyComplete,
             bool isFollowUpSurveySent, bool isFollowUpSurveyComplete, bool isProposal, double costMultiplier, bool isUnderIso13485, string businessCode, string empName)
         {
-            //  <-- in the param
             this.ProjectId = projectId;
             this.ProjectName = projectName;
             this.ProjectDescription = projectDescription;
