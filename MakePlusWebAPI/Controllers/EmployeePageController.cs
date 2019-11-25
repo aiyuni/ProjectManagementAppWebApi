@@ -24,11 +24,22 @@ namespace MakePlusWebAPI.Controllers
             this._vacationRepository = vacationRepository;
         }
 
+        /**
+         * Get all Employees 
+         */
         // GET: api/EmployeePage
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_employeeRepository.GetAll());
+            List<EmployeePage> employeePageList = new List<EmployeePage>();
+            foreach (Employee e in _employeeRepository.GetAll())
+            {
+                EmployeePage empPage = new EmployeePage();
+                empPage.name = e.Name;
+                empPage.empID = e.EmployeeId;
+                employeePageList.Add(empPage);
+            }
+            return Ok(employeePageList);
             //return new OkObjectResult(400);
         }
 

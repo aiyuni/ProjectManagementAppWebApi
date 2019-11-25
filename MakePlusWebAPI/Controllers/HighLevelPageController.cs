@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MakePlusWebAPI.Helpers;
 using MakePlusWebAPI.Models;
 using MakePlusWebAPI.Models.Pages.HighLevelPage;
+using MakePlusWebAPI.Models.Pages.Misc;
 using MakePlusWebAPI.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,12 +65,6 @@ namespace MakePlusWebAPI.Controllers
             return Ok(proposals);
         }
 
-        // GET: api/HighLevelPage/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         /**
         * Returns a single number which is the total number of Projects in the Project table
@@ -78,17 +73,19 @@ namespace MakePlusWebAPI.Controllers
         [Route("totalProjects")]  //api/HighLevelPage/totalProjects
         public IActionResult GetNumberOfProjects()
         {
-            return new OkObjectResult(_projectRepository.GetAll().Count());
+            IdJson newIdJson = new IdJson(_projectRepository.GetAll().Count());
+            return new OkObjectResult(newIdJson);
         }
 
         /**
         * Returns a single number which is the total number of Projects in the Project table
         */
         [HttpGet]
-        [Route("totalPhases")]
+        [Route("totalPhases")]  //api/HighLevelPage/totalPhases
         public IActionResult GetNumberOfPhases()
         {
-            return new OkObjectResult(_phaseRepository.GetAll().Count());
+            IdJson newIdJson = new IdJson(_phaseRepository.GetAll().Count());
+            return new OkObjectResult(newIdJson);
         }
 
 
