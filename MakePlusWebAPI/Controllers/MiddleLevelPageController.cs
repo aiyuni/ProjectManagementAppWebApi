@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using MakePlusWebAPI.Models;
 using MakePlusWebAPI.Models.Pages.MiddleLevelPage;
 using MakePlusWebAPI.Models.Repository;
@@ -15,18 +16,70 @@ namespace MakePlusWebAPI.Controllers
     public class MiddleLevelPageController : ControllerBase
     {
 
-        private readonly IDataRepository<ProjectedWorkload> _workloadRepository;
+        private readonly ProjectedWorkloadRepository _workloadRepository;
+        private readonly IDataRepository<Project> _projectRepository;
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly IDataRepository<Phase> _phaseRepository;
+        private readonly EmployeeAssignmentRepository _employeeAssignmentRepository;
 
-        public MiddleLevelPageController(IDataRepository<ProjectedWorkload> workloadRepository)
+        public MiddleLevelPageController(IDataRepository<ProjectedWorkload> workloadRepository, IDataRepository<Project> projectRepository, 
+            IDataRepository<Employee> employeeRepository, IDataRepository<Phase> phaseRepository, IDataRepository<EmployeeAssignment> employeeAssignmentRepo)
         {
-            this._workloadRepository = workloadRepository;
+            this._workloadRepository = (ProjectedWorkloadRepository)workloadRepository;
+            this._projectRepository = projectRepository;
+            this._employeeRepository = (EmployeeRepository)employeeRepository;
+            this._phaseRepository = phaseRepository;
+            this._employeeAssignmentRepository = (EmployeeAssignmentRepository)employeeAssignmentRepo;
         }
 
         // GET: api/MiddleLevelPage
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_workloadRepository.GetAll());
+            HashSet<MiddleLevelPage> middleLevelPageSet = new HashSet<MiddleLevelPage>();
+            List<MiddleLevelPage> middleLevelPageList = new List<MiddleLevelPage>();
+
+            DateTime currentDate = DateTime.Now;
+            int startMonth = currentDate.Month;
+            int startYear = currentDate.Year;
+
+            foreach (Project project in _projectRepository.GetAll())
+            {
+                System.Diagnostics.Debug.Write("PHASE REPO SIZE: " + _phaseRepository.GetAll().Where(p => p.ProjectId == project.ProjectId).ToList().Count);
+                foreach (Phase phase in _phaseRepository.GetAll().Where(p => p.ProjectId == project.ProjectId))
+                {
+                    foreach(Employee emp in _employeeRepository.GetAll())
+                    {
+                        MiddleLevelPage middleLevelPage = new MiddleLevelPage();  //this actually represents one json object in the middlelevelpage json array, and not the entire page
+
+                        middleLevelPage.empID = emp.EmployeeId;
+                        middleLevelPage.projectID = project.ProjectId;
+                        middleLevelPage.empName = emp.Name;
+                        middleLevelPage.projectCompletion = project.PercentageComplete;
+                        middleLevelPage.projectEndDate = project.ProjectEndDate;
+                        middleLevelPage.projectName = project.ProjectName;
+
+                        EmployeeAssignment ea = _employeeAssignmentRepository.Get(phase.PhaseId, emp.EmployeeId);
+                        if (ea == null)
+                        {
+                            continue;
+                        }
+                        for (int k = 0; k < 6; k++)
+                        {
+                            int currentMonth = DateTime.Now.AddMonths(k).Month;
+                            int currentYear = DateTime.Now.AddMonths(k).Year;
+
+                            ProjectedWorkload currentProjectedWorkload = _workloadRepository.Get(project.ProjectId,
+                                emp.EmployeeId, currentMonth, currentYear);
+
+                            middleLevelPage.SetMonthlyHoursWorked(k + 1, currentProjectedWorkload.Hours);
+                        }
+                        middleLevelPageSet.Add(middleLevelPage);
+                    }
+                }
+            }
+
+            return Ok(middleLevelPageSet.ToList());
         }
      
         /**
