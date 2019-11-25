@@ -70,10 +70,10 @@ namespace MakePlusWebAPI.Controllers
         * Returns a single number which is the total number of Projects in the Project table
         */
         [HttpGet]
-        [Route("totalProjects")]  //api/HighLevelPage/totalProjects
+        [Route("nextProjectId")]  //api/HighLevelPage/totalProjects
         public IActionResult GetNumberOfProjects()
         {
-            IdJson newIdJson = new IdJson(_projectRepository.GetAll().Count());
+            IdJson newIdJson = new IdJson(_projectRepository.GetMaxId()+1);
             return new OkObjectResult(newIdJson);
         }
 
@@ -81,15 +81,15 @@ namespace MakePlusWebAPI.Controllers
         * Returns a single number which is the total number of Projects in the Project table
         */
         [HttpGet]
-        [Route("totalPhases")]  //api/HighLevelPage/totalPhases
-        public IActionResult GetNumberOfPhases()
+        [Route("nextPhaseId")]  //api/HighLevelPage/totalPhases
+        public IActionResult GetNextPhaseId()
         {
-            IdJson newIdJson = new IdJson(_phaseRepository.GetAll().Count());
+            IdJson newIdJson = new IdJson(_phaseRepository.GetMaxId() + 1);
             return new OkObjectResult(newIdJson);
         }
 
 
-
+  
         /**
          * High Level Page cannot Post.  This is an App feature. 
         // POST: api/HighLevelPage

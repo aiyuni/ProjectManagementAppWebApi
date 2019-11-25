@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MakePlusWebAPI.Models;
 using MakePlusWebAPI.Models.Pages.EmployeePage;
+using MakePlusWebAPI.Models.Pages.Misc;
 using MakePlusWebAPI.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace MakePlusWebAPI.Controllers
                 EmployeePage empPage = new EmployeePage();
                 empPage.name = e.Name;
                 empPage.empID = e.EmployeeId;
+                empPage.wage = e.Salary;
                 employeePageList.Add(empPage);
             }
             return Ok(employeePageList);
@@ -87,10 +89,11 @@ namespace MakePlusWebAPI.Controllers
         */
 
         [HttpGet]
-        [Route("totalEmployees")]  //api/EmployeePage/totalEmployees
+        [Route("nextEmployeeId")]  //api/EmployeePage/totalEmployees
         public IActionResult GetNumberOfEmployees()
         {
-            return new OkObjectResult(_employeeRepository.GetAll().Count());
+            IdJson newIdJson = new IdJson(_employeeRepository.GetMaxId() + 1);
+            return new OkObjectResult(newIdJson);
         }
 
     }

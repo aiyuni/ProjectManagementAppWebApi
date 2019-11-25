@@ -293,7 +293,7 @@ namespace MakePlusWebAPI.Controllers
             
             Project project = new Project(page.ID, page.Name,page.desc, page.startDate, page.endDate, page.completion, page.salaryBudget, page.totalInvoice, page.materialBudget, page.spendToDate, 
                 page.progressSurveySent, page.progressSurveyResult,
-                page.followupSurveySent, page.followupSurveyResult, true, 69.9, page.isUnderISO13485, page.businessCode, page.lead[0].name);
+                page.followupSurveySent, page.followupSurveyResult, page.isProposal, page.costMultiplier, page.isUnderISO13485, page.businessCode, page.lead[0].name);
             // <-- in the param
             _projectRepository.Add(project);
 
