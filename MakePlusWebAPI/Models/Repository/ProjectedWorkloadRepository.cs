@@ -40,8 +40,15 @@ namespace MakePlusWebAPI.Models.Repository
                 //_ProjectDbContext.Projects.Update();
             }
 
-            _projectedWorkloadDbContext.SaveChanges();
-            _projectedWorkloadDbContext.Entry(entity).State = EntityState.Detached;
+            try
+            {
+                _projectedWorkloadDbContext.SaveChanges();
+                _projectedWorkloadDbContext.Entry(entity).State = EntityState.Detached;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Caught weird exception... " + e.ToString());
+            }
         }
 
         public void Delete(ProjectedWorkload entity)
