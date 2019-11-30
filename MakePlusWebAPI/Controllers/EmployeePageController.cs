@@ -12,6 +12,10 @@ using Newtonsoft.Json;
 
 namespace MakePlusWebAPI.Controllers
 {
+    /**
+     * A class that represents the Employee Page in the frontend.
+     * Contains methods to grab and manipulate JSON objectsused in that page
+     */
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeePageController : ControllerBase
@@ -66,7 +70,8 @@ namespace MakePlusWebAPI.Controllers
                 _vacationRepository.Add(vacay);
             }
 
-            return new OkObjectResult(200);
+            //return new OkObjectResult(200);
+            return new OkObjectResult(_employeeRepository.GetAll());
         }
 
         /**

@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.HighLevelPage
 {
+    /// <summary>
+    /// A class that represents a Project JSON in the frontend High Level Page.
+    /// </summary>
     public class ProjectsArr
     {
-
         public int projectID { get; set; }
         public string projectName { get; set; }
         public string leadName { get; set; }
@@ -25,10 +27,32 @@ namespace MakePlusWebAPI.Models.Pages.HighLevelPage
         public bool followupSurveyResult { get; set; }
 
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ProjectsArr()
         {
 
         }
+
+        /// <summary>
+        /// Overloaded constructor.
+        /// </summary>
+        /// <param name="id"> the id of the project</param>
+        /// <param name="name"></param>
+        /// <param name="lname"></param>
+        /// <param name="sdate"></param>
+        /// <param name="edate"></param>
+        /// <param name="comp"></param>
+        /// <param name="salaryB"></param>
+        /// <param name="salaryI"></param>
+        /// <param name="recored"></param>
+        /// <param name="ISO"></param>
+        /// <param name="busiCode"></param>
+        /// <param name="surveySent"></param>
+        /// <param name="surveyResult"></param>
+        /// <param name="followUpSurvey"></param>
+        /// <param name="followUpSurveyR"></param>
         public ProjectsArr(int id, string name, string lname, DateTime sdate,
             DateTime edate, double comp, double salaryB, double salaryI, double recored, bool ISO,
             string busiCode, bool surveySent, bool surveyResult, bool followUpSurvey,
@@ -49,7 +73,6 @@ namespace MakePlusWebAPI.Models.Pages.HighLevelPage
             this.progressSurveyRsult = surveyResult;
             this.followupSurveySent = followUpSurvey;
             this.followupSurveyResult = followUpSurveyR;
-
         }
     }
 }

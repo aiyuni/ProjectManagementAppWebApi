@@ -7,5 +7,6 @@ namespace MakePlusWebAPI.Models.Pages.HighLevelPage
 {
     public class HighLevelPage
     {
+        //class not used
     }
 }

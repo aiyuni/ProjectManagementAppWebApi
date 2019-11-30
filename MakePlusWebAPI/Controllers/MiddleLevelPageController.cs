@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MakePlusWebAPI.Controllers
 {
+    /// <summary>
+    /// Controller class for the Middle Level Page.  
+    /// The page is read only, so there is only GET.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class MiddleLevelPageController : ControllerBase
@@ -22,6 +26,14 @@ namespace MakePlusWebAPI.Controllers
         private readonly IDataRepository<Phase> _phaseRepository;
         private readonly EmployeeAssignmentRepository _employeeAssignmentRepository;
 
+        /// <summary>
+        /// Constructor taking in the data manager aka repository objects.
+        /// </summary>
+        /// <param name="workloadRepository"></param>
+        /// <param name="projectRepository"></param>
+        /// <param name="employeeRepository"></param>
+        /// <param name="phaseRepository"></param>
+        /// <param name="employeeAssignmentRepo"></param>
         public MiddleLevelPageController(IDataRepository<ProjectedWorkload> workloadRepository, IDataRepository<Project> projectRepository, 
             IDataRepository<Employee> employeeRepository, IDataRepository<Phase> phaseRepository, IDataRepository<EmployeeAssignment> employeeAssignmentRepo)
         {
@@ -55,7 +67,7 @@ namespace MakePlusWebAPI.Controllers
                         middleLevelPage.empID = emp.EmployeeId;
                         middleLevelPage.projectID = project.ProjectId;
                         middleLevelPage.empName = emp.Name;
-                        middleLevelPage.projectCompletion = project.PercentageComplete;
+                        middleLevelPage.projectCompletion = project.Percentagomplete;
                         middleLevelPage.projectEndDate = project.ProjectEndDate;
                         middleLevelPage.projectName = project.ProjectName;
 
