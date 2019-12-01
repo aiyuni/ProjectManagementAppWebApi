@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that represents a non-team lead employee. Used in GET/POST of Individual Level Page. 
+    /// </summary>
     public class Member
     {
         public int empID { get; set; }

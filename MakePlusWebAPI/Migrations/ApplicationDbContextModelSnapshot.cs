@@ -171,6 +171,8 @@ namespace MakePlusWebAPI.Migrations
 
                     b.Property<bool>("isUnderISO13485");
 
+                    b.Property<double>("recordStoredCompleted");
+
                     b.HasKey("ProjectId");
 
                     b.ToTable("Projects");

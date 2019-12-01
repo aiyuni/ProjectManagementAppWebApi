@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
     /// <summary>
-    /// Class that represents the Invoice JSON used in Individual Project Page.
+    /// Class that represents the Invoice JSON used in Individual Project Page.  A Project will have many Invoice objects.
     /// </summary>
     public class InvoiceArr
     {

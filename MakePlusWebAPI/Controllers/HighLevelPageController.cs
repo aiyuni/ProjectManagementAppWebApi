@@ -27,7 +27,54 @@ namespace MakePlusWebAPI.Controllers
             this._projectRepository = projectRepository;
             this._phaseRepository = phaseRepo;
         }
-        
+
+        /// <summary>
+        /// Gets a list of Projects. 
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///     GET /HighLevelPage/projects
+        ///     [
+        ///       {
+        ///          "projectID": 0,
+        ///          "projectName": "ISSP",
+        ///          "leadName": "Peter Ahn",
+        ///          "startDate": "2019-11-06T07:26:29.638Z",
+        ///          "endDate": "2019-11-26T07:26:29.638Z",
+        ///          "completion": 80,
+        ///          "salaryBudget": 10000,
+        ///          "salaryInvoiced": 8000,
+        ///          "recoredStoredCompleted": 75,
+        ///          "underISO13485": true,
+        ///          "businessCode": "K73.1/8731",
+        ///          "progressSurveySent": true,
+        ///          "progressSurveyResult": false,
+        ///          "followupSurveySent": false,
+        ///          "followupSurveyResult": false
+        ///       },
+        ///       {
+        ///          "projectID": 1,
+        ///          "projectName": "ISSP",
+        ///          "leadName": "Perry Li",
+        ///          "startDate": "2019-11-08T07:26:29.638Z",
+        ///          "endDate": "2019-11-08T07:26:29.638Z",
+        ///          "completion": 0,
+        ///          "salaryBudget": 1000,
+        ///          "salaryInvoiced": 800,
+        ///          "recoredStoredCompleted": 10,
+        ///          "underISO13485": false,
+        ///          "businessCode": "K73.1/8731",
+        ///          "progressSurveySent": false,
+        ///          "progressSurveyResult": true,
+        ///          "followupSurveySent": false,
+        ///          "followupSurveyResult": true
+        ///       }
+        ///     ]
+        /// </remarks>
+        /// <returns>
+        /// 
+        /// </returns>
         [HttpGet]
         [Route("projects")]//GET: api/HighLevelPage/projects
         public IActionResult GetProjects()
@@ -49,6 +96,32 @@ namespace MakePlusWebAPI.Controllers
             return Ok(projects);
         }
 
+
+        /// <summary>
+        /// Gets a list of Proposals. 
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///     GET /HighLevelPage/proposals
+        ///     [
+        ///       {
+        ///          "projectID": 0,
+        ///          "projectName": "ISSP Proposal",
+        ///          "leadName": "Peter Ahn",
+        ///          "salaryBudget: 9999
+        ///       },
+        ///       {
+        ///          "projectID": 0,
+        ///          "projectName": "Another Proposal",
+        ///          "leadName": "Perry Li",
+        ///          "salaryBudget: 11111
+        ///       },
+        ///     ]
+        /// </remarks>
+        /// <returns>
+        /// 
+        /// </returns>
         [HttpGet]
         [Route("proposals")]//GET: api/HighLevelPage/proposals
         public IActionResult GetProposals()
@@ -66,9 +139,21 @@ namespace MakePlusWebAPI.Controllers
         }
 
 
-        /**
-        * Returns a single number which is the total number of Projects in the Project table
-        */
+        /// <summary>
+        /// Returns the next Project Id in JSON format. 
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///         GET /nextProjectId
+        ///         {
+        ///             "ID": 3
+        ///         }
+        ///         
+        /// </remarks>
+        /// <returns>
+        /// A JSON Object representing the next Project Id in the database.
+        /// </returns>
         [HttpGet]
         [Route("nextProjectId")]  //api/HighLevelPage/totalProjects
         public IActionResult GetNumberOfProjects()
@@ -77,9 +162,21 @@ namespace MakePlusWebAPI.Controllers
             return new OkObjectResult(newIdJson);
         }
 
-        /**
-        * Returns a single number which is the total number of Projects in the Project table
-        */
+        /// <summary>
+        /// Returns the next Phase Id in JSON format. 
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///         GET /nextPhaseId
+        ///         {
+        ///             "ID": 3
+        ///         }
+        ///         
+        /// </remarks>
+        /// <returns>
+        /// A JSON Object representing the next Phase Id in the database.
+        /// </returns>
         [HttpGet]
         [Route("nextPhaseId")]  //api/HighLevelPage/totalPhases
         public IActionResult GetNextPhaseId()

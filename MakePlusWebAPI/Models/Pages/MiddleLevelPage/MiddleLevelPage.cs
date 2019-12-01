@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.MiddleLevelPage
 {
+    /// <summary>
+    /// Class that represents the workload data of one Employee for the next 6 months, used in the Middle Level Page GET.
+    /// </summary>
     public class MiddleLevelPage
     {
         public int projectID { get; set; }

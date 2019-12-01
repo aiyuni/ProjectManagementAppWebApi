@@ -45,6 +45,88 @@ namespace MakePlusWebAPI.Controllers
         }
 
         // GET: api/MiddleLevelPage
+        /// <summary>
+        /// Returns a JSON object representing the Middle Level Page.  See sample response for details.
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        /// GET /middleLevelPage
+        /// 
+         ///       [
+         ///           { 
+         ///             "projectID":0,
+         ///             "projectName":"ISSP",
+         ///             "empID":1,
+         ///             "empName":"Reneil Pascua",
+         ///             "month1":70,
+         ///             "month2":35,
+         ///             "month3":14,
+         ///             "month4":0,
+         ///             "month5":0,
+         ///             "month6":0,
+         ///             "projectCompletion":80,
+         ///             "projectEndDate":"2019-10-30T05:30:50.461Z"
+         ///          },
+         ///          { 
+         ///             "projectID":0,
+         ///             "projectName":"ISSP",
+         ///             "empID":2,
+         ///             "empName":"Perry Li",
+         ///             "month1":98,
+         ///             "month2":14,
+         ///             "month3":28,
+         ///             "month4":0,
+         ///             "month5":0,
+         ///             "month6":0,
+         ///             "projectCompletion":80,
+         ///             "projectEndDate":"2019-10-30T05:30:50.461Z"
+         ///          },
+         ///          { 
+         ///             "projectID":1,
+         ///             "projectName":"Project2",
+         ///             "empID":1,
+         ///             "empName":"Reneil Pascua",
+         ///             "month1":70,
+         ///             "month2":35,
+         ///             "month3":14,
+         ///             "month4":0,
+         ///             "month5":0,
+         ///             "month6":0,
+         ///             "projectCompletion":75,
+         ///             "projectEndDate":"2019-10-30T05:30:50.461Z"
+         ///          },
+         ///          { 
+         ///             "projectID":1,
+         ///             "projectName":"Project2",
+         ///             "empID":2,
+         ///             "empName":"Perry Li",
+         ///             "month1":12,
+         ///             "month2":21,
+         ///             "month3":43,
+         ///             "month4":0,
+         ///             "month5":0,
+         ///             "month6":0,
+         ///             "projectCompletion":75,
+         ///             "projectEndDate":"2019-10-30T05:30:50.461Z"
+         ///          },
+         ///          { 
+         ///             "projectID":1,
+         ///             "projectName":"Project2",
+         ///             "empID":3,
+         ///             "empName":"Peter Ahn",
+         ///             "month1":43,
+         ///             "month2":21,
+         ///             "month3":42,
+         ///             "month4":0,
+         ///             "month5":0,
+         ///             "month6":0,
+         ///             "projectCompletion":75,
+         ///             "projectEndDate":"2019-10-30T05:30:50.461Z"
+         ///          }
+        ///       ]
+        /// </remarks>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -67,7 +149,7 @@ namespace MakePlusWebAPI.Controllers
                         middleLevelPage.empID = emp.EmployeeId;
                         middleLevelPage.projectID = project.ProjectId;
                         middleLevelPage.empName = emp.Name;
-                        middleLevelPage.projectCompletion = project.Percentagomplete;
+                        middleLevelPage.projectCompletion = project.PercentageComplete;
                         middleLevelPage.projectEndDate = project.ProjectEndDate;
                         middleLevelPage.projectName = project.ProjectName;
 
@@ -117,10 +199,13 @@ namespace MakePlusWebAPI.Controllers
         }
         */
 
+        /**
+         * No delete implementation.
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }   
+        */
     }
 }

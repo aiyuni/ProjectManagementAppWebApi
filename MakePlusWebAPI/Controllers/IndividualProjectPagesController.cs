@@ -37,17 +37,251 @@ namespace MakePlusWebAPI.Controllers
             this._invoiceRepository = invoiceRepository;
         }
 
-        //GET: api/individualprojectpages
-        [HttpGet]
-        public IActionResult Get()
-        {
-
-            return Ok(_projectRepository.GetAll());
-            //System.Diagnostics.Debug.WriteLine("Inside get method of individualProjectPages controller... which does nothing");
-            //return new OkObjectResult(400);
-        }
 
         //GET: api/individualprojectpages/id
+        /// <summary>
+        /// Gets a single Project.
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///     GET /individualprojectpage/{id}
+        ///     { 
+        ///           "employeeSalaryList":[ 
+        ///              { 
+        ///                 "phaseDetailsList":[ 
+        ///                    { 
+        ///                       "phaseID":20,
+        ///                       "phaseName":"consulting",
+        ///                       "budgetHr":5,
+        ///                       "actualHr":5,
+        ///                       "impact":"no impact"
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":21,
+        ///                       "phaseName":"Requirements",
+        ///                       "budgetHr":10,
+        ///                       "actualHr":12,
+        ///                       "impact":"high impact"
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":22,
+        ///                       "phaseName":"Concept",
+        ///                       "budgetHr":15,
+        ///                       "actualHr":15,
+        ///                       "impact":"11impact"
+        ///                    }
+        ///                 ],
+        ///                 "empID":1,
+        ///                 "empName":"Peter Ahn",
+        ///                 "wage":100
+        ///              },
+        ///              { 
+        ///                 "phaseDetailsList":[ 
+        ///                    { 
+        ///                       "phaseID":20,
+        ///                       "phaseName":"consulting",
+        ///                       "budgetHr":7,
+        ///                       "actualHr":7,
+        ///                       "impact":"med impact"
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":21,
+        ///                       "phaseName":"Requirements",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":22,
+        ///                       "phaseName":"Concept",
+        ///                       "budgetHr":90,
+        ///                       "actualHr":80,
+        ///                       "impact":"severe impact"
+        ///                    }
+        ///                 ],
+        ///                 "empID":2,
+        ///                 "empName":"Reneil Pascua",
+        ///                 "wage":100
+        ///              },
+        ///              { 
+        ///                 "phaseDetailsList":[ 
+        ///                    { 
+        ///                       "phaseID":20,
+        ///                       "phaseName":"consulting",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":21,
+        ///                       "phaseName":"Requirements",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":22,
+        ///                       "phaseName":"Jeff",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    }
+        ///                 ],
+        ///                 "empID":3,
+        ///                 "empName":"Perry",
+        ///                 "wage":200
+        ///              }
+        ///           ],
+        ///           "ID":5,
+        ///           "Name":"ISSP Project101",
+        ///           "desc":"Web Application for project management. The clients will be able to view/edit ongoing and past projects in both high level and low level details such as but not limited to final budget of the project, completion timeline, and individual project members’ invested hours respectively.",
+        ///           "salaryBudget":7551,
+        ///           "totalInvoice":4183,
+        ///           "materialBudget":1018,
+        ///           "spendToDate":6412,
+        ///           "startDate":"2019-12-26T08:00:00.000Z",
+        ///           "endDate":"2019-12-31T08:00:00.000Z",
+        ///           "completion":43,
+        ///           "businessCode":"NA",
+        ///           "costMultiplier":1.75,
+        ///           "isProposal":false,
+        ///           "isUnderISO13485":false,
+        ///           "recoredStoredCompleted":99,
+        ///           "progressSurveyRsult":true,
+        ///           "progressSurveySent":true,
+        ///           "followupSurveySent":true,
+        ///           "followupSurveyResult":false,
+        ///           "lead":[ 
+        ///              { 
+        ///                 "empID":1,
+        ///                 "name":"Peter Ahn",
+        ///                 "wage":100
+        ///              }
+        ///           ],
+        ///           "member":[ 
+        ///              { 
+        ///                 "empID":2,
+        ///                 "name":"Reneil Pascua",
+        ///                 "wage":100
+        ///              },
+        ///              { 
+        ///                 "empID":3,
+        ///                 "name":"Perry Li",
+        ///                 "wage":200
+        ///              }
+        ///           ],
+        ///           "phaseArr":[ 
+        ///              { 
+        ///                 "phaseID":20,
+        ///                 "name":"consulting",
+        ///                 "startDate":"2019-11-16T08:00:00.000Z",
+        ///                 "endDate":"2019-11-30T08:00:00.000Z",
+        ///                 "isRecordDone":true,
+        ///                 "predictedDurationInWeeks":20,
+        ///                 "actualDurationInWeeks":25,
+        ///                 "impact":"high impact"
+        ///              },
+        ///              { 
+        ///                 "phaseID":21,
+        ///                 "name":"Requirements",
+        ///                 "startDate":"2019-12-01T08:00:00.000Z",
+        ///                 "endDate":"2019-12-05T08:00:00.000Z",
+        ///                 "isRecordDone":true,
+        ///                 "predictedDurationInWeeks":"21",
+        ///                 "actualDurationInWeeks":25,
+        ///                 "impact":"high impact"
+        ///              },
+        ///              { 
+        ///                 "phaseID":22,
+        ///                 "name":"Concept",
+        ///                 "startDate":"2019-12-06T08:00:00.000Z",
+        ///                 "endDate":"2019-12-21T08:00:00.000Z",
+        ///                 "isRecordDone":true,
+        ///                 "predictedDurationInWeeks":20,
+        ///                 "actualDurationInWeeks":25,
+        ///                 "impact":"high impact"
+        ///              }
+        ///           ],
+        ///           "workloadArr":[ 
+        ///              { 
+        ///                 "empID":1,
+        ///                 "empName":"Peter",
+        ///                 "month1":0,
+        ///                 "month2":0,
+        ///                 "month3":29,
+        ///                 "month4":31,
+        ///                 "month5":5,
+        ///                 "month6":6
+        ///              },
+        ///              { 
+        ///                 "empID":2,
+        ///                 "empName":"Reneil",
+        ///                 "month1":12,
+        ///                 "month2":3,
+        ///                 "month3":0,
+        ///                 "month4":0,
+        ///                 "month5":0,
+        ///                 "month6":0
+        ///              },
+        ///              { 
+        ///                 "empID":3,
+        ///                 "empName":"Perry",
+        ///                 "month1":10,
+        ///                 "month2":9,
+        ///                 "month3":8,
+        ///                 "month4":7,
+        ///                 "month5":6,
+        ///                 "month6":99
+        ///              }
+        ///           ],
+        ///           "invoiceArr":[ 
+        ///              { 
+        ///                 "amount":997,
+        ///                 "date":"2019-12-02T08:00:00.000Z"
+        ///              },
+        ///              { 
+        ///                 "amount":471,
+        ///                 "date":"2019-12-12T08:00:00.000Z"
+        ///              },
+        ///              { 
+        ///                 "amount":642,
+        ///                 "date":"2019-12-22T08:00:00.000Z"
+        ///              }
+        ///           ],
+        ///           "material":[ 
+        ///              { 
+        ///                 "phaseID":20,
+        ///                 "phaseName":"consulting",
+        ///                 "actualBudget":200,
+        ///                 "projectedBudget":100,
+        ///                 "impact":"over $100"
+        ///              },
+        ///              { 
+        ///                 "phaseID":21,
+        ///                 "phaseName":"Requirements",
+        ///                 "actualBudget":200,
+        ///                 "projectedBudget":100,
+        ///                 "impact":"over $100"
+        ///              },
+        ///              { 
+        ///                 "phaseID":22,
+        ///                 "phaseName":"Concept",
+        ///                 "actualBudget":200,
+        ///                 "projectedBudget":100,
+        ///                 "impact":"over $100"
+        ///              }
+        ///           ]
+        ///        }
+        ///
+        /// 
+        /// </remarks>
+        /// <param name="id">
+        /// The project ID as stored in the database.
+        /// </param>
+        /// <returns>
+        /// 
+        /// </returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -64,7 +298,7 @@ namespace MakePlusWebAPI.Controllers
                 startDate = _projectRepository.Get(id).ProjectStartDate,
                 endDate = _projectRepository.Get(id).ProjectEndDate,
                 completion = _projectRepository.Get(id).PercentageComplete,
-                recoredStoredCompleted = 69,
+                recoredStoredCompleted = _projectRepository.Get(id).recordStoredCompleted,
                 progressSurveyResult = _projectRepository.Get(id).IsInProgressSurveyComplete,
                 progressSurveySent = _projectRepository.Get(id).IsInProgressSurveySent,
                 followupSurveyResult = _projectRepository.Get(id).IsFollowUpSurveyComplete,
@@ -106,17 +340,6 @@ namespace MakePlusWebAPI.Controllers
 
             individualProjectPage.phaseArr = new List<PhaseArr>();
 
-            /*for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)  //getMaxId returns the last id of the table, so it must be <=
-            {
-                if (_phaseRepository.Get(i) != null && _phaseRepository.Get(i).ProjectId == id)
-                {
-                    Phase currentPhase = _phaseRepository.Get(i);
-                    individualProjectPage.phaseArr.Add(new PhaseArr(currentPhase.PhaseId, currentPhase.Name,
-                        currentPhase.StartDate, currentPhase.EndDate, currentPhase.IsRecordDone,
-                        currentPhase.PredictedDurationInWeeks, currentPhase.ActualDurationInWeeks, currentPhase.Impact));
-                }
-            } */
-
             foreach(Phase phase in _phaseRepository.GetAll())
             {
                 if(phase.ProjectId == id)
@@ -129,49 +352,6 @@ namespace MakePlusWebAPI.Controllers
 
             individualProjectPage.workloadArr = new List<WorkloadArr>();
             WorkloadArr currentWorkloadArr = new WorkloadArr();
-
-            /*
-            for (int i = 0; i <= _projectRepository.GetMaxId(); i++)
-            {
-                if (_projectRepository.Get(i) != null && _projectRepository.Get(i).ProjectId == id)
-                {
-                    for (int j = 0; j <= _employeeRepository.GetMaxId(); j++)
-                    {
-                        if (_employeeRepository.Get(j) != null)
-                        {
-                            Employee currentEmployee = _employeeRepository.Get(j);
-                            Project currentProject = _projectRepository.Get(i);
-
-                            //Developer Assumption: if ProjectedWorkload exists for Month1, then they will also exist for Month2-6.  
-                            ProjectedWorkload currentProjectedWorkload =
-                                _projectedWorkloadRepository.Get(i, j, DateTime.Now.Month, DateTime.Now.Year);  
-                            if (currentProjectedWorkload == null)
-                            {
-                                continue;
-                            }
-
-                            for (int k = 0; k < 6; k++)
-                            {
-                                int currentMonth = DateTime.Now.AddMonths(k).Month;
-                                int currentYear = DateTime.Now.AddMonths(k).Year;
-
-                                if (_employeeRepository.Get(j).EmployeeId == _projectedWorkloadRepository
-                                        .Get(i, j, currentMonth, currentYear).EmployeeId
-                                    && _projectRepository.Get(i).ProjectId == _projectedWorkloadRepository
-                                        .Get(i, j, currentMonth, currentYear).ProjectId)
-                                {
-                                    currentWorkloadArr.empID = _employeeRepository.Get(j).EmployeeId;
-                                    currentWorkloadArr.empName = _employeeRepository.Get(j).Name;
-                                    currentWorkloadArr.SetSpecificMonth(k + 1, _projectedWorkloadRepository
-                                        .Get(i, j, currentMonth, currentYear).Hours);
-                                }
-                            }
-                            individualProjectPage.workloadArr.Add(new WorkloadArr(currentWorkloadArr.empID, currentWorkloadArr.empName, currentWorkloadArr.month1, currentWorkloadArr.month2,
-                                currentWorkloadArr.month3, currentWorkloadArr.month4, currentWorkloadArr.month5, currentWorkloadArr.month6));
-                        }
-                    }
-                }
-            } */
 
             foreach(Project proj in _projectRepository.GetAll())
             {
@@ -216,15 +396,6 @@ namespace MakePlusWebAPI.Controllers
             }
 
             individualProjectPage.material = new List<Material>();
-            /*for (int i = 0; i <= _phaseRepository.GetMaxId(); i++)
-            {
-                if (_phaseRepository.Get(i) != null && _phaseRepository.Get(i).ProjectId ==id)
-                {
-                    Phase currentPhase = _phaseRepository.Get(i);
-                    individualProjectPage.material.Add(new Material(currentPhase.PhaseId, currentPhase.Name, currentPhase.MaterialActualBudget,
-                        currentPhase.MaterialProjectedBudget, currentPhase.MaterialImpact));
-                }
-            }*/
 
             foreach (Phase phase in _phaseRepository.GetAll())
             {
@@ -236,34 +407,6 @@ namespace MakePlusWebAPI.Controllers
             }
 
             individualProjectPage.employeeSalaryList = new List<EmployeeSalary>();
-            /*
-            for (int i = 0; i <= _employeeRepository.GetMaxId(); i++)
-            {
-                if (_employeeRepository.Get(i) != null)
-                {
-                    Employee currentEmployee = _employeeRepository.Get(i);
-                    List<PhaseDetails> phaseDetailsList = new List<PhaseDetails>();
-                    for (int j = 0; j <= _phaseRepository.GetMaxId(); j++)
-                    {
-                        if (_phaseRepository.Get(j) != null && _phaseRepository.Get(j).ProjectId == id)
-                        {
-                            Phase currentPhase = _phaseRepository.Get(j);
-                            if (_employeeAssignmentRepository.Get(currentPhase.PhaseId, currentEmployee.EmployeeId)!= null)
-                            {
-                                EmployeeAssignment currentEmployeeAssignment = _employeeAssignmentRepository.Get(currentPhase.PhaseId, currentEmployee.EmployeeId);
-                            phaseDetailsList.Add(new PhaseDetails(currentPhase.PhaseId, currentPhase.Name, currentEmployeeAssignment.ProjectedHours, currentEmployeeAssignment.ActualHours, 
-                                currentEmployeeAssignment.Impact));
-                            }
-                        }
-                    }
-                    if (phaseDetailsList.Count != 0)  //to prevent all the employees from being added to the employeeSalaryList.  Only employees that are working on the project will be added. 
-                    {
-                        individualProjectPage.employeeSalaryList.Add(new EmployeeSalary(currentEmployee.EmployeeId, currentEmployee.Name, currentEmployee.Salary, phaseDetailsList));
-                    }
-
-                }
-            }
-            */
 
             foreach(Employee emp in _employeeRepository.GetAll())
             {
@@ -287,6 +430,247 @@ namespace MakePlusWebAPI.Controllers
         }
 
         //POST: api/individualprojectpages
+        /// <summary>
+        /// Adds or updates a project. Performs an implementation of Upsert in the database. JSON format is the same as what GET returns.  See sample request for details.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /individualprojectpage/{id}
+        ///     { 
+        ///           "employeeSalaryList":[ 
+        ///              { 
+        ///                 "phaseDetailsList":[ 
+        ///                    { 
+        ///                       "phaseID":20,
+        ///                       "phaseName":"consulting",
+        ///                       "budgetHr":5,
+        ///                       "actualHr":5,
+        ///                       "impact":"no impact"
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":21,
+        ///                       "phaseName":"Requirements",
+        ///                       "budgetHr":10,
+        ///                       "actualHr":12,
+        ///                       "impact":"high impact"
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":22,
+        ///                       "phaseName":"Concept",
+        ///                       "budgetHr":15,
+        ///                       "actualHr":15,
+        ///                       "impact":"11impact"
+        ///                    }
+        ///                 ],
+        ///                 "empID":1,
+        ///                 "empName":"Peter Ahn",
+        ///                 "wage":100
+        ///              },
+        ///              { 
+        ///                 "phaseDetailsList":[ 
+        ///                    { 
+        ///                       "phaseID":20,
+        ///                       "phaseName":"consulting",
+        ///                       "budgetHr":7,
+        ///                       "actualHr":7,
+        ///                       "impact":"med impact"
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":21,
+        ///                       "phaseName":"Requirements",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":22,
+        ///                       "phaseName":"Concept",
+        ///                       "budgetHr":90,
+        ///                       "actualHr":80,
+        ///                       "impact":"severe impact"
+        ///                    }
+        ///                 ],
+        ///                 "empID":2,
+        ///                 "empName":"Reneil Pascua",
+        ///                 "wage":100
+        ///              },
+        ///              { 
+        ///                 "phaseDetailsList":[ 
+        ///                    { 
+        ///                       "phaseID":20,
+        ///                       "phaseName":"consulting",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":21,
+        ///                       "phaseName":"Requirements",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    },
+        ///                    { 
+        ///                       "phaseID":22,
+        ///                       "phaseName":"Jeff",
+        ///                       "budgetHr":0,
+        ///                       "actualHr":0,
+        ///                       "impact":""
+        ///                    }
+        ///                 ],
+        ///                 "empID":3,
+        ///                 "empName":"Perry",
+        ///                 "wage":200
+        ///              }
+        ///           ],
+        ///           "ID":5,
+        ///           "Name":"ISSP Project101",
+        ///           "desc":"Web Application for project management. The clients will be able to view/edit ongoing and past projects in both high level and low level details such as but not limited to final budget of the project, completion timeline, and individual project members’ invested hours respectively.",
+        ///           "salaryBudget":7551,
+        ///           "totalInvoice":4183,
+        ///           "materialBudget":1018,
+        ///           "spendToDate":6412,
+        ///           "startDate":"2019-12-26T08:00:00.000Z",
+        ///           "endDate":"2019-12-31T08:00:00.000Z",
+        ///           "completion":43,
+        ///           "businessCode":"NA",
+        ///           "costMultiplier":1.75,
+        ///           "isProposal":false,
+        ///           "isUnderISO13485":false,
+        ///           "recoredStoredCompleted":99,
+        ///           "progressSurveyRsult":true,
+        ///           "progressSurveySent":true,
+        ///           "followupSurveySent":true,
+        ///           "followupSurveyResult":false,
+        ///           "lead":[ 
+        ///              { 
+        ///                 "empID":1,
+        ///                 "name":"Peter Ahn",
+        ///                 "wage":100
+        ///              }
+        ///           ],
+        ///           "member":[ 
+        ///              { 
+        ///                 "empID":2,
+        ///                 "name":"Reneil Pascua",
+        ///                 "wage":100
+        ///              },
+        ///              { 
+        ///                 "empID":3,
+        ///                 "name":"Perry Li",
+        ///                 "wage":200
+        ///              }
+        ///           ],
+        ///           "phaseArr":[ 
+        ///              { 
+        ///                 "phaseID":20,
+        ///                 "name":"consulting",
+        ///                 "startDate":"2019-11-16T08:00:00.000Z",
+        ///                 "endDate":"2019-11-30T08:00:00.000Z",
+        ///                 "isRecordDone":true,
+        ///                 "predictedDurationInWeeks":20,
+        ///                 "actualDurationInWeeks":25,
+        ///                 "impact":"high impact"
+        ///              },
+        ///              { 
+        ///                 "phaseID":21,
+        ///                 "name":"Requirements",
+        ///                 "startDate":"2019-12-01T08:00:00.000Z",
+        ///                 "endDate":"2019-12-05T08:00:00.000Z",
+        ///                 "isRecordDone":true,
+        ///                 "predictedDurationInWeeks":"21",
+        ///                 "actualDurationInWeeks":25,
+        ///                 "impact":"high impact"
+        ///              },
+        ///              { 
+        ///                 "phaseID":22,
+        ///                 "name":"Concept",
+        ///                 "startDate":"2019-12-06T08:00:00.000Z",
+        ///                 "endDate":"2019-12-21T08:00:00.000Z",
+        ///                 "isRecordDone":true,
+        ///                 "predictedDurationInWeeks":20,
+        ///                 "actualDurationInWeeks":25,
+        ///                 "impact":"high impact"
+        ///              }
+        ///           ],
+        ///           "workloadArr":[ 
+        ///              { 
+        ///                 "empID":1,
+        ///                 "empName":"Peter",
+        ///                 "month1":0,
+        ///                 "month2":0,
+        ///                 "month3":29,
+        ///                 "month4":31,
+        ///                 "month5":5,
+        ///                 "month6":6
+        ///              },
+        ///              { 
+        ///                 "empID":2,
+        ///                 "empName":"Reneil",
+        ///                 "month1":12,
+        ///                 "month2":3,
+        ///                 "month3":0,
+        ///                 "month4":0,
+        ///                 "month5":0,
+        ///                 "month6":0
+        ///              },
+        ///              { 
+        ///                 "empID":3,
+        ///                 "empName":"Perry",
+        ///                 "month1":10,
+        ///                 "month2":9,
+        ///                 "month3":8,
+        ///                 "month4":7,
+        ///                 "month5":6,
+        ///                 "month6":99
+        ///              }
+        ///           ],
+        ///           "invoiceArr":[ 
+        ///              { 
+        ///                 "amount":997,
+        ///                 "date":"2019-12-02T08:00:00.000Z"
+        ///              },
+        ///              { 
+        ///                 "amount":471,
+        ///                 "date":"2019-12-12T08:00:00.000Z"
+        ///              },
+        ///              { 
+        ///                 "amount":642,
+        ///                 "date":"2019-12-22T08:00:00.000Z"
+        ///              }
+        ///           ],
+        ///           "material":[ 
+        ///              { 
+        ///                 "phaseID":20,
+        ///                 "phaseName":"consulting",
+        ///                 "actualBudget":200,
+        ///                 "projectedBudget":100,
+        ///                 "impact":"over $100"
+        ///              },
+        ///              { 
+        ///                 "phaseID":21,
+        ///                 "phaseName":"Requirements",
+        ///                 "actualBudget":200,
+        ///                 "projectedBudget":100,
+        ///                 "impact":"over $100"
+        ///              },
+        ///              { 
+        ///                 "phaseID":22,
+        ///                 "phaseName":"Concept",
+        ///                 "actualBudget":200,
+        ///                 "projectedBudget":100,
+        ///                 "impact":"over $100"
+        ///              }
+        ///           ]
+        ///        }
+        ///
+        /// 
+        /// </remarks>
+        /// <param name="page">
+        /// The IndividualProjectPage JSON object 
+        /// </param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(IndividualProjectPage page)
         {
@@ -371,5 +755,16 @@ namespace MakePlusWebAPI.Controllers
             return new OkObjectResult(201);
         }
 
+        /*
+        //GET: api/individualprojectpages  NOT USED
+        [HttpGet]
+        public IActionResult Get()
+        {
+
+            return Ok(_projectRepository.GetAll());
+            //System.Diagnostics.Debug.WriteLine("Inside get method of individualProjectPages controller... which does nothing");
+            //return new OkObjectResult(400);
+        }
+        */
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.VacationPage
 {
+    /// <summary>
+    /// Class that represents an Employee's vacation hours for the next 6 months. Used in Vacation GET.
+    /// </summary>
     [JsonObject]
     public class VacationArr
     {

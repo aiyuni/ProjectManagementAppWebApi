@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that represents the Salary JSON object in IndividualLevelPage. 
+    /// </summary>
     public class SalaryArr
     {
         public int phaseID { get; set; }

@@ -14,7 +14,7 @@ namespace MakePlusWebAPI.Controllers
 {
     /**
      * A class that represents the Employee Page in the frontend.
-     * Contains methods to grab and manipulate JSON objectsused in that page
+     * Contains methods to grab and manipulate JSON objects used in that page
      */
     [Route("api/[controller]")]
     [ApiController]
@@ -29,10 +29,29 @@ namespace MakePlusWebAPI.Controllers
             this._vacationRepository = vacationRepository;
         }
 
-        /**
-         * Get all Employees 
-         */
-        // GET: api/EmployeePage
+
+        /// <summary>
+        /// Gets a list of EmployeePage objects. 
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///     GET /EmployeePage
+        ///     [
+        ///        {
+        ///             "empID": 1,
+        ///             "name" : "Perry"
+        ///         },
+        ///          {
+        ///             "empID": 2,
+        ///             "name" : "Peter"
+        ///         }
+        ///     ]
+        ///         
+        /// </remarks>
+        /// <returns>
+        /// A list of EmployeePage objects.
+        /// </returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -49,7 +68,24 @@ namespace MakePlusWebAPI.Controllers
             //return new OkObjectResult(400);
         }
 
+
         // POST: api/EmployeePage
+        /// <summary>
+        /// Adds a single Employee to the database.  See sample request for details.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///         POST /EmployeePage
+        ///         {
+        ///             "empID": 1,
+        ///             "name" : "Perry",
+        ///             "wage" : 500
+        ///         }
+        ///         
+        /// </remarks>
+        /// <param name="page">The Employee JSON</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(EmployeePage page)
         {
@@ -74,6 +110,30 @@ namespace MakePlusWebAPI.Controllers
             return new OkObjectResult(_employeeRepository.GetAll());
         }
 
+        /// <summary>
+        /// Returns the next Employee Id in JSON format. 
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        ///     GET /nextEmployeeId
+        ///        {
+        ///             "ID": 3
+        ///         }
+        ///         
+        /// </remarks>
+        /// <returns>
+        /// A JSON Object representing the next Employee Id in the database.
+        /// </returns>
+        [HttpGet]
+        [Route("nextEmployeeId")]  //api/EmployeePage/totalEmployees
+        public IActionResult GetNumberOfEmployees()
+        {
+            IdJson newIdJson = new IdJson(_employeeRepository.GetMaxId() + 1);
+            return new OkObjectResult(newIdJson);
+        }
+
+
         /**
          * Employee Page cannot Put.  
         /*
@@ -92,14 +152,6 @@ namespace MakePlusWebAPI.Controllers
         {
         }
         */
-
-        [HttpGet]
-        [Route("nextEmployeeId")]  //api/EmployeePage/totalEmployees
-        public IActionResult GetNumberOfEmployees()
-        {
-            IdJson newIdJson = new IdJson(_employeeRepository.GetMaxId() + 1);
-            return new OkObjectResult(newIdJson);
-        }
 
     }
 }

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that represents the details of a Phase. Contains Phase information such as hours worked. Used in GET/POST of Individual Level Page. 
+    /// </summary>
     public class PhaseDetails
     {
         public int phaseID { get; set; }

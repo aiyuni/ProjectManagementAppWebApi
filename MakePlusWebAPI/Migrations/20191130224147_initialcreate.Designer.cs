@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MakePlusWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191120043942_perry")]
-    partial class perry
+    [Migration("20191130224147_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -172,6 +172,8 @@ namespace MakePlusWebAPI.Migrations
                     b.Property<double>("TotalInvoice");
 
                     b.Property<bool>("isUnderISO13485");
+
+                    b.Property<double>("recordStoredCompleted");
 
                     b.HasKey("ProjectId");
 

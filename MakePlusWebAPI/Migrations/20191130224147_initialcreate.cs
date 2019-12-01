@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MakePlusWebAPI.Migrations
 {
-    public partial class peter2 : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,6 +37,7 @@ namespace MakePlusWebAPI.Migrations
                     TotalInvoice = table.Column<double>(nullable: false),
                     MaterialBudget = table.Column<double>(nullable: false),
                     SpentToDate = table.Column<double>(nullable: false),
+                    recordStoredCompleted = table.Column<double>(nullable: false),
                     IsInProgressSurveySent = table.Column<bool>(nullable: false),
                     IsInProgressSurveyComplete = table.Column<bool>(nullable: false),
                     IsFollowUpSurveySent = table.Column<bool>(nullable: false),

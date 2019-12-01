@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that represents a Material JSON object.  In business logic, projects has material costs. 
+    /// </summary>
     public class Material
     {
         public int phaseID { get; set; }

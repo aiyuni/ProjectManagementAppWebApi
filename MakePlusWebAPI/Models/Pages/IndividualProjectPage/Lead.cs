@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that represents the Lead JSON object in Individual Level Page. Represents an Employee who is the team lead of a project.
+    /// </summary>
     public class Lead
     {
         public int empID { get; set; }

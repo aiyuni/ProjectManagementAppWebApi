@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
     /// <summary>
-    /// Class that represents the individual project page JSON used in frontend.
+    /// Class that represents the entire individual project page JSON.
     /// </summary>
     public class IndividualProjectPage
     {

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that repreents the Workload of one Employee. Used for GET/POST in Individual Level Page.
+    /// </summary>
     public class WorkloadArr
     {
         public int empID { get; set; }
@@ -66,22 +69,16 @@ namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
             {
                 case 1:
                     return month1;
-                    break;
                 case 2:
                     return month2;
-                    break;
                 case 3:
                     return month3;
-                    break;
                 case 4:
                     return month4;
-                    break;
                 case 5:
                     return month5;
-                    break;
                 case 6:
                     return month6;
-                    break;
                 default:
                     throw new Exception("something went wrong...invalid monthInt");
             }

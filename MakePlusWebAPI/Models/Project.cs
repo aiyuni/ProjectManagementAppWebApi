@@ -22,6 +22,7 @@ namespace MakePlusWebAPI.Models
         public double TotalInvoice { get; set; }
         public double MaterialBudget { get; set; }
         public double SpentToDate { get; set; }
+        public double recordStoredCompleted { get; set; }
         public bool IsInProgressSurveySent { get; set; }
         public bool IsInProgressSurveyComplete { get; set; }
         public bool IsFollowUpSurveySent { get; set; }

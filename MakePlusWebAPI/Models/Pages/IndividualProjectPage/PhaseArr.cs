@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
 {
+    /// <summary>
+    /// Class that represents a Phase JSON object. A Project is made up of many Phases.  Used in GET/POST of Individual Level Page. 
+    /// </summary>
     public class PhaseArr
     {
         public int phaseID { get; set; }
