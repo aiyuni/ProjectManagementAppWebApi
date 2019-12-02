@@ -12,8 +12,8 @@ Date: 1 December 2019
 
 MakePlusWebAPI is a back-end infrastructor that creates WEB API and 
 processes requests from the front-end in JSON format.
-This back-end is sectioned into Model, Repository, Controller, Class
-Controller classes utilize Repository classes to connect between Model/Class to the front-end.
+This Web API was made using a Domain Driven Design approach.
+Controller classes utilize the Repositories to interact with the services which performs CRUD operations to the database.
 
 Prefer refer to the class diagram for details on individual sections with respective classes.
 
