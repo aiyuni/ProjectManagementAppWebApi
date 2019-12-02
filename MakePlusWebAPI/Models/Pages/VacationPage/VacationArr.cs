@@ -33,7 +33,7 @@ namespace MakePlusWebAPI.Models.Pages.VacationPage
                 }
             }else if(year > date.Year)
             {
-                monthIndex = month + (12 - date.Month);
+                monthIndex = month + (12 - date.Month) + 1;
             }
 
             switch (monthIndex)
@@ -58,8 +58,7 @@ namespace MakePlusWebAPI.Models.Pages.VacationPage
                     break;
 
                 default:
-                    throw new Exception("something went wrong...invalid monthInt");
-
+                    return; //we can't throw an exception here.
             }
             
         }

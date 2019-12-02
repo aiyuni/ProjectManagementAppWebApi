@@ -20,7 +20,7 @@ namespace MakePlusWebAPI.Models.Pages.IndividualProjectPage
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public double completion { get; set; }
-        public double recoredStoredCompleted { get; set; }  //whats this?
+        public double recoredStoredCompleted { get; set; }  
         public bool progressSurveyResult { get; set; }
         public bool progressSurveySent { get; set; }
         public bool followupSurveySent { get; set; }

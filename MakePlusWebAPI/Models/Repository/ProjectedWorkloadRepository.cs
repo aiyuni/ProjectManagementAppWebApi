@@ -37,7 +37,6 @@ namespace MakePlusWebAPI.Models.Repository
                 ProjectedWorkload existingEA = _projectedWorkloadDbContext.ProjectedWorkloads.FirstOrDefault(p => p.ProjectId== entity.ProjectId && p.EmployeeId == entity.EmployeeId 
                                                                                                                   && p.Month == entity.Month && p.Year == entity.Year);
                 this.Update(existingEA, entity);
-                //_ProjectDbContext.Projects.Update();
             }
 
             try

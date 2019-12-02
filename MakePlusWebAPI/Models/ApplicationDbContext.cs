@@ -22,8 +22,6 @@ namespace MakePlusWebAPI.Models
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Vacation> Vacations { get; set; }
 
-        // public DbSet<EmployeeAssignment> EmployeeAssignments { get; set; }
-
         //Fluent API follows the Fluent Interface design pattern.  EF does it with ModelBuilder class. https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

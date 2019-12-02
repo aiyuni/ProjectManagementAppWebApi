@@ -50,6 +50,7 @@ namespace MakePlusWebAPI
             services.AddScoped<IDataRepository<Invoice>, InvoiceRepository>();
             services.AddScoped<IDataRepository<Vacation>, VacationRepository>();
 
+            //Add Swagger documentation
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MakePlus Project Management Application - Web API", Version = "Version 1.0" });

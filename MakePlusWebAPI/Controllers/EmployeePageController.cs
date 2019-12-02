@@ -58,14 +58,15 @@ namespace MakePlusWebAPI.Controllers
             List<EmployeePage> employeePageList = new List<EmployeePage>();
             foreach (Employee e in _employeeRepository.GetAll())
             {
-                EmployeePage empPage = new EmployeePage();
-                empPage.name = e.Name;
-                empPage.empID = e.EmployeeId;
-                empPage.wage = e.Salary;
+                EmployeePage empPage = new EmployeePage
+                {
+                    name = e.Name,
+                    empID = e.EmployeeId,
+                    wage = e.Salary
+                };
                 employeePageList.Add(empPage);
             }
             return Ok(employeePageList);
-            //return new OkObjectResult(400);
         }
 
 
@@ -94,6 +95,7 @@ namespace MakePlusWebAPI.Controllers
             _employeeRepository.Add(employee);
 
             //Post default 6 month vacation data for the employee with hours set to 0
+            //For future iterations, look into optimizing this logic, as the drawback of this logic is evident when the next month arrives.
             for(int i = 0; i < 6; i++)
             {
                 Vacation vacay = new Vacation();

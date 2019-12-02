@@ -25,5 +25,16 @@ namespace MakePlusWebAPI.Models
             this.Row_lst_upd_ts = DateTime.Now.ToString();
             this.Row_lst_upd_user = System.Environment.UserName;
         }
+
+        public ProjectedWorkload(int projectId, int employeeId, int month, int year, double hours)
+        {
+            this.ProjectId = projectId;
+            this.EmployeeId = employeeId;
+            this.Month = month;
+            this.Year = year;
+            this.Hours = hours;
+            this.Row_lst_upd_ts = DateTime.Now.ToString();
+            this.Row_lst_upd_user = System.Environment.UserName;
+        }
     }
 }

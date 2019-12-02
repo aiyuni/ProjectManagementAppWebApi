@@ -56,13 +56,6 @@ namespace MakePlusWebAPI.Models.Repository
 
         public void Update(Vacation dbEntity, Vacation entity)
         {
-           /* _vacationContext.Entry(dbEntity).Property(x => x.EmployeeId).IsModified = false;
-            _vacationContext.Entry(dbEntity).Property(x => x.EmployeeName).IsModified = false;
-            _vacationContext.Entry(dbEntity).Property(x => x.Year).IsModified = false;
-            _vacationContext.Entry(dbEntity).Property(x => x.Month).IsModified = false;
-            _vacationContext.SaveChanges(); */
-            
-
             _vacationContext.Entry(dbEntity).Property(x => x.Hours).CurrentValue = entity.Hours;
             // _projectedWorkloadDbContext.Entry(dbEntity).Property(x => x.Year).CurrentValue = entity.Year;
             // _projectedWorkloadDbContext.Entry(dbEntity).Property(x => x.Month).CurrentValue = entity.Month;

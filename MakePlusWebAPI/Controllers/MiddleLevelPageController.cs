@@ -154,21 +154,34 @@ namespace MakePlusWebAPI.Controllers
                         middleLevelPage.projectName = project.ProjectName;
 
                         EmployeeAssignment ea = _employeeAssignmentRepository.Get(phase.PhaseId, emp.EmployeeId);
-                        if (ea == null)
-                        {
-                            continue;
-                        }
-                        for (int k = 0; k < 6; k++)
-                        {
-                            int currentMonth = DateTime.Now.AddMonths(k).Month;
-                            int currentYear = DateTime.Now.AddMonths(k).Year;
 
-                            ProjectedWorkload currentProjectedWorkload = _workloadRepository.Get(project.ProjectId,
-                                emp.EmployeeId, currentMonth, currentYear);
+                        //If ea is null, then it means the Employee is not working in that Phase for that Project, so there is no workload data for that Employee
+                        if (ea != null)
+                        {
+                            for (int k = 0; k < 6; k++)
+                            {
+                                int currentMonth = DateTime.Now.AddMonths(k).Month;
+                                int currentYear = DateTime.Now.AddMonths(k).Year;
 
-                            middleLevelPage.SetMonthlyHoursWorked(k + 1, currentProjectedWorkload.Hours);
+                                ProjectedWorkload currentProjectedWorkload = _workloadRepository.Get(project.ProjectId,
+                                    emp.EmployeeId, currentMonth, currentYear);
+
+                                /*If currentProjectedWorkload is null, it means that the Employee doesn't have a workload row for the month.  Thus, we create the workload data
+                                and set the hours worked to 0. This happens when a new month arrives, since each Employee only has workload data for the first 6 months 
+                                starting from when it is added.
+                                */
+                                if (currentProjectedWorkload == null)
+                                {
+                                    ProjectedWorkload newMonthWorkload = new ProjectedWorkload(project.ProjectId, emp.EmployeeId, currentMonth, currentYear, 0);
+                                    _workloadRepository.Add(newMonthWorkload);
+                                    currentProjectedWorkload = _workloadRepository.Get(project.ProjectId,
+                                        emp.EmployeeId, currentMonth, currentYear);
+                                }
+
+                                middleLevelPage.SetMonthlyHoursWorked(k + 1, currentProjectedWorkload.Hours);
+                            }
+                            middleLevelPageSet.Add(middleLevelPage);
                         }
-                        middleLevelPageSet.Add(middleLevelPage);
                     }
                 }
             }

@@ -145,7 +145,6 @@ namespace MakePlusWebAPI.Controllers
                     vacation.Hours = item.GetVacationHours(i + 1);
                     _vacationRepository.Add(vacation);
                 }
-
             }
             
             return new OkObjectResult(402);
